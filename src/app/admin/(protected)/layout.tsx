@@ -35,13 +35,13 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <div className="flex min-h-screen bg-slate-100">
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-slate-200 bg-slate-950 lg:flex">
-        <div className="flex items-center gap-2.5 px-6 py-6">
+        <Link href="/" className="flex items-center gap-2.5 px-6 py-6 transition-opacity hover:opacity-80">
           <LogoBadge className="h-9 w-9 text-sm" />
           <div>
             <p className="text-sm font-bold text-white">APRRC 2027</p>
             <p className="text-xs text-slate-400">Organizer Dashboard</p>
           </div>
-        </div>
+        </Link>
 
         <nav className="flex-1 space-y-1 px-3 py-4">
           {NAV.map((item) => (
@@ -82,7 +82,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 function MobileNav({ email }: { email?: string }) {
   return (
     <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between border-b border-slate-200 bg-slate-950 px-5 py-3 lg:hidden">
-      <Link href="/admin" className="flex items-center gap-2 text-sm font-bold text-white">
+      <Link href="/" className="flex items-center gap-2 text-sm font-bold text-white">
         <LogoBadge className="h-8 w-8 text-xs" />
         APRRC Admin
       </Link>
