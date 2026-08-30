@@ -1,7 +1,7 @@
 import "server-only";
 import { prisma } from "@/lib/prisma";
 import { flagForCountryName } from "@/data/countries";
-import type { ParticipantStatus } from "@prisma/client";
+import { Prisma, type ParticipantStatus } from "@prisma/client";
 
 export type CountryStat = {
   country: string;
@@ -64,21 +64,32 @@ function buildWhere(filters: AdminFilters) {
 export async function getAdminOverview(filters: AdminFilters = {}) {
   const where = buildWhere(filters);
 
-  const [total, confirmed, pending, cancelled, rejected, countries] = await Promise.all([
+  // Breakdown counts always span every status regardless of filters.status
+  // (matching the country-count query below), so build the WHERE clause for
+  // the raw query from country/date filters only — one grouped query instead
+  // of four separate count()s.
+  const conditions: Prisma.Sql[] = [];
+  if (filters.country) conditions.push(Prisma.sql`country = ${filters.country}`);
+  if (filters.dateFrom) conditions.push(Prisma.sql`"registrationDate" >= ${new Date(filters.dateFrom)}`);
+  if (filters.dateTo) conditions.push(Prisma.sql`"registrationDate" <= ${new Date(filters.dateTo)}`);
+  const whereSql = conditions.length > 0 ? Prisma.sql`WHERE ${Prisma.join(conditions, " AND ")}` : Prisma.empty;
+
+  const [total, statusRows, countries] = await Promise.all([
     prisma.participant.count({ where }),
-    prisma.participant.count({ where: { ...where, status: "CONFIRMED" } }),
-    prisma.participant.count({ where: { ...where, status: "PENDING" } }),
-    prisma.participant.count({ where: { ...where, status: "CANCELLED" } }),
-    prisma.participant.count({ where: { ...where, status: "REJECTED" } }),
+    prisma.$queryRaw<{ status: ParticipantStatus; count: bigint }[]>(
+      Prisma.sql`SELECT status, COUNT(*) as count FROM "Participant" ${whereSql} GROUP BY status`
+    ),
     prisma.participant.groupBy({ by: ["country"], where: { ...where, status: "CONFIRMED" } }),
   ]);
 
+  const byStatus = Object.fromEntries(statusRows.map((r) => [r.status, Number(r.count)]));
+
   return {
     total,
-    confirmed,
-    pending,
-    cancelled,
-    rejected,
+    confirmed: byStatus.CONFIRMED ?? 0,
+    pending: byStatus.PENDING ?? 0,
+    cancelled: byStatus.CANCELLED ?? 0,
+    rejected: byStatus.REJECTED ?? 0,
     countryCount: countries.length,
   };
 }
