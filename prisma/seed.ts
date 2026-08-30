@@ -115,7 +115,9 @@ async function main() {
         city: "—",
         organization: pick(ORGS),
         position: pick(POSITIONS),
-        status: weightedStatus(),
+        // Guarantee every country has at least one Confirmed participant so
+        // it never randomly vanishes from the public "confirmed only" stats.
+        status: i === 0 ? ParticipantStatus.CONFIRMED : weightedStatus(),
         registrationDate: randomDateWithinDays(75),
       });
       seq++;
