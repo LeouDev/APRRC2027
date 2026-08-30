@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { COUNTRY_BY_NAME } from "@/data/countries";
+import { sendConfirmationEmail } from "@/lib/email";
 
 const updateSchema = z.object({
   firstName: z.string().min(1).max(100).optional(),
@@ -38,6 +39,10 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   const countryCode = data.country ? COUNTRY_BY_NAME.get(data.country)?.code : undefined;
 
   try {
+    const before = data.status
+      ? await prisma.participant.findUnique({ where: { id }, select: { status: true } })
+      : null;
+
     const participant = await prisma.participant.update({
       where: { id },
       data: {
@@ -46,6 +51,17 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
       },
       omit: { proofOfPayment: true },
     });
+
+    if (data.status === "CONFIRMED" && before?.status !== "CONFIRMED") {
+      // Best-effort: a failed email should never fail the status update itself.
+      sendConfirmationEmail({
+        registrationNumber: participant.registrationNumber,
+        fullName: `${participant.firstName} ${participant.lastName}`,
+        email: participant.email,
+        registrationDate: participant.registrationDate,
+      }).catch((err) => console.error("sendConfirmationEmail failed:", err));
+    }
+
     return NextResponse.json({ participant });
   } catch {
     return NextResponse.json({ error: "Participant not found." }, { status: 404 });
