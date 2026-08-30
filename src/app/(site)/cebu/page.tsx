@@ -207,24 +207,47 @@ export default function CebuPage() {
       <section id="things-to-do" className="scroll-mt-[120px] sm:scroll-mt-[192px] lg:scroll-mt-[208px] mx-auto max-w-6xl px-5 py-20 sm:px-8">
         <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-amber-600">Things to Do</h2>
         <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900">Tourist Attractions & Culture</p>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {[
-            "Magellan's Cross & Basilica del Santo Niño",
-            "Fort San Pedro",
-            "Temple of Leah",
-            "Sirao Flower Garden",
-            "Taoist Temple",
-            "Sky Experience Adventure",
-            "Kawasan Falls day trip",
-            "Whale shark watching in Oslob",
-            "Casa Gorordo Museum",
+            { name: "Magellan's Cross & Basilica del Santo Niño", image: "/images/cebu/magellans-cross.jpg" },
+            { name: "Fort San Pedro", image: "/images/cebu/fort-san-pedro.jpg" },
+            { name: "Temple of Leah", image: "/images/cebu/temple-of-leah.jpg" },
+            { name: "Sirao Flower Garden", image: "/images/cebu/sirao-flower-garden.jpg" },
+            { name: "Taoist Temple", image: "/images/cebu/taoist-temple.jpg" },
+            { name: "Sky Experience Adventure", image: "/images/cebu/sky-experience-adventure.jpg" },
+            { name: "Kawasan Falls day trip", image: "/images/cebu/kawasan-falls.jpg" },
+            { name: "Whale shark watching in Oslob", image: "/images/cebu/whale-shark-watching-oslob.jpg" },
+            { name: "Casa Gorordo Museum", image: "/images/cebu/casa-gorordo-museum.jpg" },
           ].map((a) => (
-            <div key={a} className="flex items-center gap-3 rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700">
-              <Landmark className="h-4 w-4 shrink-0 text-amber-500" />
-              {a}
+            <div
+              key={a.name}
+              className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+            >
+              <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                <Photo
+                  src={a.image}
+                  alt={a.name}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  fallbackClassName="h-full w-full"
+                />
+              </div>
+              <div className="flex items-center gap-2.5 p-4">
+                <Landmark className="h-4 w-4 shrink-0 text-amber-500" />
+                <p className="text-sm font-medium text-slate-700">{a.name}</p>
+              </div>
             </div>
           ))}
         </div>
+        <p className="mt-6 text-xs leading-relaxed text-slate-400">
+          Attraction photos via Wikimedia Commons:{" "}
+          <a href="https://commons.wikimedia.org/wiki/File:Fort_San_Pedro,_Cebu-City_(49063919082).jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">xiquinhosilva</a> (Fort San Pedro, CC BY 2.0),{" "}
+          <a href="https://commons.wikimedia.org/wiki/File:Temple_of_Leah,_Cebu_City,_Jan_2024.jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Ralff Nestor Nacor</a> (Temple of Leah, CC BY-SA 4.0),{" "}
+          <a href="https://commons.wikimedia.org/wiki/File:Sirao_Garden.jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Maria Glenda Perico</a> (Sirao Flower Garden, CC BY-SA 4.0),{" "}
+          <a href="https://commons.wikimedia.org/wiki/File:Cebu_Taoist_Temple_(Beverly_Hills,_Lahug,_Cebu_City;_09-06-2022).jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Patrickroque01</a> (Taoist Temple, CC BY-SA 4.0),{" "}
+          <a href="https://commons.wikimedia.org/wiki/File:Skywalk3w3ngMJmacqu1.JPG" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">JoshuaCruzPhilippines</a> (Sky Experience Adventure, CC BY-SA 3.0),{" "}
+          <a href="https://commons.wikimedia.org/wiki/File:Kawasan_Falls_Level_1,_Badian,_Cebu_in_2026.jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">A.C.T. Alejandre</a> (Kawasan Falls, CC BY-SA 4.0), and{" "}
+          <a href="https://commons.wikimedia.org/wiki/File:Casa_Gorordo_Cebu.jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">CharMel Creations</a> (Casa Gorordo Museum, CC BY-SA 4.0).
+        </p>
       </section>
 
       {/* BEACHES */}
