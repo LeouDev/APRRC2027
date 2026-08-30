@@ -409,12 +409,17 @@ export function RegistrationForm() {
           <div className="space-y-6">
             <h2 className="text-lg font-semibold text-slate-900">Payment</h2>
 
+            <div className="flex items-center justify-between rounded-xl border border-amber-200 bg-amber-50 px-5 py-4">
+              <span className="text-sm font-medium text-amber-900">Registration Fee</span>
+              <span className="text-2xl font-black text-amber-900">$425 <span className="text-sm font-medium">USD</span></span>
+            </div>
+
             <div className="rounded-xl border border-slate-200 bg-slate-50 p-5 text-sm text-slate-600">
               <p className="font-semibold text-slate-900">Bank: EastWest Bank</p>
               <p>Account Name: APRRC Convention Management Service</p>
               <p>Account Number (USD): 300002597377 &middot; Bank Code: 010620014 &middot; SWIFT: EWBCPHMM</p>
               <p className="mt-2 font-semibold text-slate-900">For Philippine Rotaractors</p>
-              <p>Account Number (PHP): 200069419746</p>
+              <p>Account Number (PHP): 200069419746 (peso equivalent of $425 at the prevailing exchange rate)</p>
             </div>
 
             <div>
