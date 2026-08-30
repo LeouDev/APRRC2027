@@ -41,6 +41,9 @@ export async function GET(req: NextRequest) {
       orderBy,
       skip: (page - 1) * pageSize,
       take: pageSize,
+      // Exclude the raw proof-of-payment bytes from list/detail responses —
+      // it's fetched separately via /proof-of-payment only when needed.
+      omit: { proofOfPayment: true },
     }),
   ]);
 

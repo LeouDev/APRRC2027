@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import {
   Plane,
   BedDouble,
@@ -339,15 +340,13 @@ export default function CebuPage() {
       <section className="bg-white py-16">
         <div className="mx-auto flex max-w-3xl flex-col items-center gap-4 px-5 text-center sm:px-8">
           <p className="text-2xl font-bold text-slate-900">Ready to join us in Cebu?</p>
-          <a
-            href={EVENT.googleFormUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/register"
             className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-500 to-rose-500 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-rose-500/30 transition-all hover:-translate-y-0.5"
           >
             Register Now
             <ArrowUpRight className="h-5 w-5" />
-          </a>
+          </Link>
         </div>
       </section>
     </div>

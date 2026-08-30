@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowUpRight, MapPin, CalendarDays } from "lucide-react";
 import { EVENT } from "@/lib/event-config";
 import { Countdown } from "@/components/site/countdown";
@@ -57,15 +58,13 @@ export function Hero() {
           </div>
 
           <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-            <a
-              href={EVENT.googleFormUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/register"
               className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-amber-400 via-rose-500 to-blue-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-rose-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl"
             >
               Register Now
               <ArrowUpRight className="h-5 w-5" />
-            </a>
+            </Link>
             <a
               href="/cebu"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-8 py-4 text-base font-semibold text-slate-800 shadow-sm transition-all hover:-translate-y-0.5 hover:bg-slate-50"

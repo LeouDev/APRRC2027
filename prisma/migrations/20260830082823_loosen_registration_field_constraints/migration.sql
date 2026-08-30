@@ -1,0 +1,16 @@
+-- AlterTable
+ALTER TABLE "Participant" ALTER COLUMN "phone" DROP NOT NULL,
+ALTER COLUMN "organization" DROP NOT NULL,
+ALTER COLUMN "position" DROP NOT NULL,
+ALTER COLUMN "dateOfBirth" DROP NOT NULL,
+ALTER COLUMN "dietaryRestrictions" DROP NOT NULL,
+ALTER COLUMN "emergencyContactEmail" DROP NOT NULL,
+ALTER COLUMN "emergencyContactName" DROP NOT NULL,
+ALTER COLUMN "emergencyContactPhone" DROP NOT NULL,
+ALTER COLUMN "emergencyContactRelationship" DROP NOT NULL,
+ALTER COLUMN "gender" DROP NOT NULL,
+ALTER COLUMN "medicalConditions" DROP NOT NULL,
+ALTER COLUMN "passportNumber" DROP NOT NULL,
+ALTER COLUMN "paymentMethod" DROP NOT NULL,
+ALTER COLUMN "shirtSize" DROP NOT NULL,
+ALTER COLUMN "specialAssistance" DROP NOT NULL;

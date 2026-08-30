@@ -18,7 +18,10 @@ const updateSchema = z.object({
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const participant = await prisma.participant.findUnique({ where: { id } });
+  const participant = await prisma.participant.findUnique({
+    where: { id },
+    omit: { proofOfPayment: true },
+  });
   if (!participant) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json({ participant });
 }
@@ -41,6 +44,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
         ...data,
         ...(countryCode ? { countryCode } : {}),
       },
+      omit: { proofOfPayment: true },
     });
     return NextResponse.json({ participant });
   } catch {

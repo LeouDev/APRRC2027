@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { EVENT } from "@/lib/event-config";
 
@@ -22,15 +23,13 @@ export function RegistrationCtaSection() {
           Registration for {EVENT.name} is now open. Spots fill quickly — reserve yours today and join
           delegates from around the world.
         </p>
-        <a
-          href={EVENT.googleFormUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          href="/register"
           className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-bold text-rose-600 shadow-xl transition-all hover:-translate-y-0.5"
         >
           Register Now
           <ArrowUpRight className="h-5 w-5" />
-        </a>
+        </Link>
       </div>
     </section>
   );

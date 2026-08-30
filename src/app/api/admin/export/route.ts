@@ -13,13 +13,24 @@ function csvEscape(value: unknown): string {
 const COLUMNS = [
   "registrationNumber",
   "firstName",
+  "middleName",
   "lastName",
+  "gender",
+  "dateOfBirth",
   "email",
   "phone",
   "country",
-  "city",
+  "passportNumber",
   "organization",
   "position",
+  "shirtSize",
+  "dietaryRestrictions",
+  "medicalConditions",
+  "specialAssistance",
+  "emergencyContactName",
+  "emergencyContactRelationship",
+  "emergencyContactPhone",
+  "paymentMethod",
   "status",
   "registrationDate",
   "adminNotes",
@@ -55,13 +66,15 @@ export async function GET(req: NextRequest) {
   const participants = await prisma.participant.findMany({
     where,
     orderBy: { registrationDate: "desc" },
+    omit: { proofOfPayment: true },
   });
 
   const rows = [
     COLUMNS.join(","),
     ...participants.map((p) =>
       COLUMNS.map((col) => {
-        const value = col === "registrationDate" ? p.registrationDate.toISOString() : p[col];
+        const raw = p[col];
+        const value = raw instanceof Date ? raw.toISOString() : raw;
         return csvEscape(value);
       }).join(",")
     ),

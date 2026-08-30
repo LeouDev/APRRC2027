@@ -66,15 +66,13 @@ export function Navbar() {
         </div>
 
         <div className="hidden md:block">
-          <a
-            href={EVENT.googleFormUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/register"
             className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-amber-500 to-rose-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-rose-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl"
           >
             Register Now
             <ArrowUpRight className="h-4 w-4" />
-          </a>
+          </Link>
         </div>
 
         <button
@@ -100,15 +98,14 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href={EVENT.googleFormUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/register"
+              onClick={() => setOpen(false)}
               className="inline-flex items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-amber-500 to-rose-500 px-5 py-3 text-sm font-semibold text-white shadow-md"
             >
               Register Now
               <ArrowUpRight className="h-4 w-4" />
-            </a>
+            </Link>
           </div>
         </div>
       )}

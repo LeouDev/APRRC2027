@@ -52,6 +52,11 @@ const POSITIONS = [
   "Club President", "District Governor", "Secretary", "Treasurer", "Delegate",
   "Service Chair", "International Service Director", "Committee Chair", "Member", "Sergeant-at-Arms",
 ];
+const GENDERS = ["Male", "Female", "Prefer not to say"];
+const SHIRT_SIZES = ["XS", "S", "M", "L", "XL", "XXL"];
+const RELATIONSHIPS = ["Spouse", "Mother", "Father", "Siblings"];
+const PAYMENT_METHODS = ["CASH_LEADERS_SUMMIT", "BANK_PHP", "BANK_USD"];
+const DIETARY = ["None", "Vegetarian", "Vegan", "Halal", "No pork", "Gluten-free"];
 
 function pick<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -61,6 +66,13 @@ function randomDateWithinDays(days: number): Date {
   const now = Date.now();
   const past = now - Math.random() * days * 24 * 60 * 60 * 1000;
   return new Date(past);
+}
+
+function randomBirthDate(): Date {
+  // Adult delegates, roughly 20-40 years old.
+  const now = Date.now();
+  const years = 20 + Math.random() * 20;
+  return new Date(now - years * 365.25 * 24 * 60 * 60 * 1000);
 }
 
 function weightedStatus(): ParticipantStatus {
@@ -144,6 +156,18 @@ async function main() {
         status: r.status,
         registrationDate: r.registrationDate,
         createdAt: r.registrationDate,
+        gender: pick(GENDERS),
+        dateOfBirth: randomBirthDate(),
+        passportNumber: `P${String(10000000 + n)}`,
+        shirtSize: pick(SHIRT_SIZES),
+        emergencyContactName: `${pick(FIRST_NAMES)} ${pick(LAST_NAMES)}`,
+        emergencyContactRelationship: pick(RELATIONSHIPS),
+        emergencyContactPhone: `+1555${String(2000000 + n).slice(0, 7)}`,
+        emergencyContactEmail: `emergency.contact${n}@example.com`,
+        dietaryRestrictions: pick(DIETARY),
+        medicalConditions: "None",
+        specialAssistance: "None",
+        paymentMethod: pick(PAYMENT_METHODS),
       },
     });
     n++;
