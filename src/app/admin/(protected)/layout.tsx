@@ -2,6 +2,24 @@ import Link from "next/link";
 import { LayoutDashboard, Users, Globe2, BarChart3, Settings, LogOut } from "lucide-react";
 import { getSession } from "@/lib/session";
 import { logoutAction } from "@/app/admin/login/actions";
+import { Photo } from "@/components/site/photo";
+
+function LogoBadge({ className }: { className: string }) {
+  return (
+    <Photo
+      src="/images/logo.png"
+      alt="APRRC '27 logo"
+      className={`${className} rounded-full object-cover`}
+      fallback={
+        <span
+          className={`${className} flex items-center justify-center rounded-full bg-gradient-to-br from-amber-400 to-orange-600 font-black text-white`}
+        >
+          AP
+        </span>
+      }
+    />
+  );
+}
 
 const NAV = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
@@ -18,9 +36,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     <div className="flex min-h-screen bg-slate-100">
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-slate-200 bg-slate-950 lg:flex">
         <div className="flex items-center gap-2.5 px-6 py-6">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-amber-400 to-orange-600 text-sm font-black text-white">
-            AP
-          </span>
+          <LogoBadge className="h-9 w-9 text-sm" />
           <div>
             <p className="text-sm font-bold text-white">APRRC 2027</p>
             <p className="text-xs text-slate-400">Organizer Dashboard</p>
@@ -67,9 +83,7 @@ function MobileNav({ email }: { email?: string }) {
   return (
     <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between border-b border-slate-200 bg-slate-950 px-5 py-3 lg:hidden">
       <Link href="/admin" className="flex items-center gap-2 text-sm font-bold text-white">
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-amber-400 to-orange-600 text-xs font-black">
-          AP
-        </span>
+        <LogoBadge className="h-8 w-8 text-xs" />
         APRRC Admin
       </Link>
       <form action={logoutAction}>

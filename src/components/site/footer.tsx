@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Mail, MapPin } from "lucide-react";
 import { EVENT } from "@/lib/event-config";
+import { Photo } from "@/components/site/photo";
 
 function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -17,9 +18,16 @@ export function Footer() {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="flex items-center gap-2.5 font-bold text-white">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-amber-400 to-rose-600 text-sm font-black">
-                AP
-              </span>
+              <Photo
+                src="/images/logo.png"
+                alt={`${EVENT.name} logo`}
+                className="h-9 w-9 rounded-full object-cover shadow-md"
+                fallback={
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-amber-400 to-rose-600 text-sm font-black">
+                    AP
+                  </span>
+                }
+              />
               <span>{EVENT.name}</span>
             </div>
             <p className="mt-4 text-sm leading-relaxed text-slate-400">
