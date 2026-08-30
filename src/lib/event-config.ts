@@ -15,7 +15,7 @@ export const EVENT = {
     process.env.NEXT_PUBLIC_GOOGLE_FORM_URL ||
     "https://docs.google.com/forms/d/e/1FAIpQLSc_oi2h942OqEw3U3TKiHjQsBJ2rcR5GZ6CuDUPxXZel7jYAg/viewform",
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-  contactEmail: "info@aprrc2027cebu.org",
+  contactEmail: "registrations@aprrc27cebuph.org",
   organizers: [
     "Rotaract Asia Pacific Multi-District Information Organization",
     "Rotary District 3860",
