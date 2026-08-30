@@ -4,21 +4,12 @@ import { useRef } from "react";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { Photo } from "@/components/site/photo";
 
-type Cuisine = "Filipino" | "Filipino (Cebuano)" | "European" | "Asian" | "Spanish";
-
 type Restaurant = {
   name: string;
-  cuisine: Cuisine;
+  cuisine: string;
   distinction: "Bib Gourmand" | "Selected Restaurants";
   url: string;
-};
-
-const CUISINE_IMAGE: Record<Cuisine, string> = {
-  Filipino: "/images/cebu/cuisine/filipino.jpg",
-  "Filipino (Cebuano)": "/images/cebu/cuisine/filipino-cebuano.jpg",
-  European: "/images/cebu/cuisine/european.jpg",
-  Asian: "/images/cebu/cuisine/asian.jpg",
-  Spanish: "/images/cebu/cuisine/spanish.jpg",
+  image: string;
 };
 
 const RESTAURANTS: Restaurant[] = [
@@ -27,60 +18,70 @@ const RESTAURANTS: Restaurant[] = [
     cuisine: "Filipino",
     distinction: "Bib Gourmand",
     url: "https://guide.michelin.com/en/central-visayas/cebu-city_2340421/restaurant/lasa-1241166",
+    image: "/images/cebu/cuisine/filipino.jpg",
   },
   {
     name: "Esmen",
     cuisine: "Filipino",
     distinction: "Bib Gourmand",
     url: "https://www.facebook.com/esmencarinderia/",
+    image: "/images/cebu/cuisine/sisig.jpg",
   },
   {
     name: "Pares Batchoy Food House",
     cuisine: "Filipino",
     distinction: "Bib Gourmand",
     url: "https://www.facebook.com/p/Pares-Batchoy-Food-House-61550258849279/",
+    image: "/images/cebu/cuisine/kare-kare.jpg",
   },
   {
     name: "The Pig & Palm",
     cuisine: "European",
     distinction: "Bib Gourmand",
     url: "http://thepigandpalm.ph/",
+    image: "/images/cebu/cuisine/european.jpg",
   },
   {
     name: "Cur8",
     cuisine: "Asian",
     distinction: "Bib Gourmand",
     url: "https://www.facebook.com/cur8.ph/",
+    image: "/images/cebu/cuisine/asian.jpg",
   },
   {
     name: "Abaseria Deli & Cafe",
     cuisine: "Filipino",
     distinction: "Bib Gourmand",
     url: "https://www.facebook.com/abaseriaofficial/",
+    image: "/images/cebu/cuisine/sinigang.jpg",
   },
   {
     name: "Sialo",
     cuisine: "Filipino",
     distinction: "Selected Restaurants",
     url: "https://sialocebu.com/",
+    image: "/images/cebu/cuisine/pancit.jpg",
   },
   {
     name: "Socarrat",
     cuisine: "Spanish",
     distinction: "Selected Restaurants",
     url: "https://www.facebook.com/socarratcebu/",
+    image: "/images/cebu/cuisine/spanish.jpg",
   },
   {
     name: "Abli",
     cuisine: "Filipino (Cebuano)",
     distinction: "Selected Restaurants",
     url: "https://www.facebook.com/ablirestaurant/",
+    image: "/images/cebu/cuisine/filipino-cebuano.jpg",
   },
   {
     name: "ATO-AH",
     cuisine: "Filipino (Cebuano)",
     distinction: "Selected Restaurants",
     url: "https://www.instagram.com/atoah.ph/",
+    image: "/images/cebu/cuisine/humba.jpg",
   },
 ];
 
@@ -109,7 +110,7 @@ export function MichelinCarousel() {
           >
             <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
               <Photo
-                src={CUISINE_IMAGE[r.cuisine]}
+                src={r.image}
                 alt={`Representative ${r.cuisine} dish`}
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 fallbackClassName="h-full w-full"
@@ -169,12 +170,17 @@ export function MichelinCarousel() {
         </div>
       </div>
       <p className="mt-3 text-xs leading-relaxed text-slate-400">
-        Photos show a representative dish for each cuisine, not the specific restaurant — freely-licensed images via{" "}
+        Photos show a representative dish, not the specific restaurant — freely-licensed images via{" "}
         <a href="https://commons.wikimedia.org/wiki/File:Chicken_Adobo_over_rice.jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Jack Lawrence</a>,{" "}
-        <a href="https://commons.wikimedia.org/wiki/File:Lechon_De_Cebu.jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">EMMAN A. FORONDA</a>,{" "}
+        <a href="https://commons.wikimedia.org/wiki/File:Sizzling_Sisig.jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Ej Afable</a>,{" "}
+        <a href="https://commons.wikimedia.org/wiki/File:Mac_MG_5939.jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">GwennVienn</a>,{" "}
         <a href="https://www.pexels.com/photo/delicious-meal-with-steak-in-restaurant-5491046/" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Rachel Claire</a>,{" "}
-        <a href="https://www.pexels.com/photo/food-plating-of-rice-and-dim-sum-5409017/" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Momo King</a>, and{" "}
-        <a href="https://commons.wikimedia.org/wiki/File:Spanish_Paella_(Unsplash).jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Cel Lisboa</a>.
+        <a href="https://www.pexels.com/photo/food-plating-of-rice-and-dim-sum-5409017/" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Momo King</a>,{" "}
+        <a href="https://commons.wikimedia.org/wiki/File:Sinigang_na_baboy.jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Anne Molina</a>,{" "}
+        <a href="https://www.pexels.com/photo/pancit-with-mixed-vegetable-toppings-5724558/" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Christian Moises Pahati</a>,{" "}
+        <a href="https://commons.wikimedia.org/wiki/File:Spanish_Paella_(Unsplash).jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Cel Lisboa</a>,{" "}
+        <a href="https://commons.wikimedia.org/wiki/File:Lechon_De_Cebu.jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">EMMAN A. FORONDA</a>, and{" "}
+        <a href="https://commons.wikimedia.org/wiki/File:Humba_(Philippines).jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Obsidian Soul</a>.
       </p>
     </div>
   );
