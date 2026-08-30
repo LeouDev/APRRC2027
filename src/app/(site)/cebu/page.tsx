@@ -257,20 +257,42 @@ export default function CebuPage() {
           <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900">Island Hopping Paradise</p>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { name: "Mactan Island", desc: "Resort beaches minutes from the airport, great for a half-day escape." },
-              { name: "Bantayan Island", desc: "Powdery white sand, a longer day trip north of Cebu." },
-              { name: "Camotes Islands", desc: "Lagoons and caves for the more adventurous traveler." },
-              { name: "Moalboal", desc: "World-famous sardine run and vibrant reef diving." },
-              { name: "Malapascua Island", desc: "Thresher shark diving off Cebu's northern tip." },
-              { name: "Sumilon Island", desc: "A protected marine sanctuary with a stunning sandbar." },
+              { name: "Mactan Island", desc: "Resort beaches minutes from the airport, great for a half-day escape.", image: "/images/cebu/mactan-island.jpg" },
+              { name: "Bantayan Island", desc: "Powdery white sand, a longer day trip north of Cebu.", image: "/images/cebu/bantayan-island.jpg" },
+              { name: "Camotes Islands", desc: "Lagoons and caves for the more adventurous traveler.", image: "/images/cebu/camotes-islands.jpg" },
+              { name: "Moalboal", desc: "World-famous sardine run and vibrant reef diving.", image: "/images/cebu/moalboal.jpg" },
+              { name: "Malapascua Island", desc: "Thresher shark diving off Cebu's northern tip.", image: "/images/cebu/malapascua-island.jpg" },
+              { name: "Sumilon Island", desc: "A protected marine sanctuary with a stunning sandbar.", image: "/images/cebu/sumilon-island.jpg" },
             ].map((b) => (
-              <div key={b.name} className="rounded-2xl border border-sky-100 bg-white p-6 shadow-sm">
-                <Waves className="h-6 w-6 text-sky-500" />
-                <h3 className="mt-4 text-base font-semibold text-slate-900">{b.name}</h3>
-                <p className="mt-1.5 text-sm text-slate-500">{b.desc}</p>
+              <div
+                key={b.name}
+                className="group overflow-hidden rounded-2xl border border-sky-100 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden bg-sky-50">
+                  <Photo
+                    src={b.image}
+                    alt={b.name}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fallbackClassName="h-full w-full"
+                  />
+                </div>
+                <div className="p-6">
+                  <Waves className="h-6 w-6 text-sky-500" />
+                  <h3 className="mt-4 text-base font-semibold text-slate-900">{b.name}</h3>
+                  <p className="mt-1.5 text-sm text-slate-500">{b.desc}</p>
+                </div>
               </div>
             ))}
           </div>
+          <p className="mt-6 text-xs leading-relaxed text-slate-400">
+            Island photos via Wikimedia Commons:{" "}
+            <a href="https://commons.wikimedia.org/wiki/File:Blue_waters_beach_philippines_mactan.jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Øyvind Holmstad</a> (Mactan Island, CC BY-SA 4.0),{" "}
+            <a href="https://commons.wikimedia.org/wiki/File:Sugar_Beach_Bantayan.jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Mike Gonzalez</a> (Bantayan Island, CC BY-SA 3.0),{" "}
+            <a href="https://commons.wikimedia.org/wiki/File:Sunset_in_the_Camotes_Islands.jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Camotes Islands</a> (CC0),{" "}
+            <a href="https://commons.wikimedia.org/wiki/File:2014_11_Moalboal_21_sardine_run_(16024303526).jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Lakshmi Sawitri</a> (Moalboal, CC BY 2.0),{" "}
+            <a href="https://commons.wikimedia.org/wiki/File:Malapascua_(island),_Bounty_Beach,_Philippines.jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Vyacheslav Argenberg</a> (Malapascua Island, CC BY 4.0), and{" "}
+            <a href="https://commons.wikimedia.org/wiki/File:Sumilon_Island_sandbar.jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Warrendering</a> (Sumilon Island, CC BY-SA 4.0).
+          </p>
         </div>
       </section>
 
