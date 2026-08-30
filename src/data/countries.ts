@@ -8,6 +8,7 @@ export type Country = {
 // country selector and for turning a stored country name back into a flag.
 export const COUNTRIES: Country[] = [
   { name: "Afghanistan", code: "AF", dial: "+93" },
+  { name: "American Samoa", code: "AS", dial: "+1-684" },
   { name: "Albania", code: "AL", dial: "+355" },
   { name: "Algeria", code: "DZ", dial: "+213" },
   { name: "Argentina", code: "AR", dial: "+54" },
@@ -31,8 +32,10 @@ export const COUNTRIES: Country[] = [
   { name: "Fiji", code: "FJ", dial: "+679" },
   { name: "Finland", code: "FI", dial: "+358" },
   { name: "France", code: "FR", dial: "+33" },
+  { name: "French Polynesia", code: "PF", dial: "+689" },
   { name: "Germany", code: "DE", dial: "+49" },
   { name: "Greece", code: "GR", dial: "+30" },
+  { name: "Guam", code: "GU", dial: "+1-671" },
   { name: "Hong Kong", code: "HK", dial: "+852" },
   { name: "Iceland", code: "IS", dial: "+354" },
   { name: "India", code: "IN", dial: "+91" },
@@ -49,7 +52,7 @@ export const COUNTRIES: Country[] = [
   { name: "Kuwait", code: "KW", dial: "+965" },
   { name: "Laos", code: "LA", dial: "+856" },
   { name: "Lebanon", code: "LB", dial: "+961" },
-  { name: "Macau", code: "MO", dial: "+853" },
+  { name: "Macao", code: "MO", dial: "+853" },
   { name: "Malaysia", code: "MY", dial: "+60" },
   { name: "Maldives", code: "MV", dial: "+960" },
   { name: "Mexico", code: "MX", dial: "+52" },

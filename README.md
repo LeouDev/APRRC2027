@@ -6,7 +6,8 @@ Official event website, registration landing, and organizer admin dashboard for 
 ## Stack
 
 - **Next.js 16** (App Router) + TypeScript + Tailwind CSS 4
-- **Prisma 6 + SQLite** for the participant database (swap the `DATABASE_URL` provider for Postgres/MySQL in production if needed)
+- **Prisma 6 + Supabase (hosted Postgres)** for the participant database — no local DB file, works
+  identically in dev and on Vercel
 - Custom cookie-based admin auth (JWT via `jose`, bcrypt password hashing) — no third-party auth service
 - **Recharts** for the country breakdown and registration trend charts
 - **Radix UI** primitives (Dialog, Select, Tabs, Label) for accessible components
@@ -15,11 +16,17 @@ Official event website, registration landing, and organizer admin dashboard for 
 
 ```bash
 npm install
-cp .env.example .env   # then edit ADMIN_EMAIL / ADMIN_PASSWORD / SESSION_SECRET
+cp .env.example .env   # then fill in DATABASE_URL / DIRECT_URL (from Supabase) and ADMIN_EMAIL / ADMIN_PASSWORD / SESSION_SECRET
 npx prisma migrate dev
 npm run db:seed        # loads sample participants + creates the admin user
 npm run dev
 ```
+
+`DATABASE_URL` and `DIRECT_URL` come from your Supabase project → **Project Settings → Database →
+Connection string**: use the **Transaction pooler** (port 6543) string for `DATABASE_URL` and the
+**Direct connection** (port 5432) string for `DIRECT_URL`. The pooler is required for serverless
+(Vercel) — Postgres doesn't handle thousands of short-lived direct connections well — while migrations
+need the direct connection since the pooler doesn't support the session features `prisma migrate` uses.
 
 Visit `http://localhost:3000`. Admin dashboard is at `/admin` — log in with the
 `ADMIN_EMAIL` / `ADMIN_PASSWORD` from your `.env` (seeded values printed at the end of `db:seed`).
@@ -81,8 +88,7 @@ prisma/seed.ts             sample data + admin user bootstrap
 - `middleware.ts` uses Next's (deprecated-but-still-supported) middleware convention; Next 16 suggests
   migrating to the newer `proxy.ts` convention via `npx @next/codemod@canary middleware-to-proxy .`
   when convenient — not urgent, current setup works and is fully tested.
-- SQLite (`prisma/dev.db`) is great for local dev/demo; for a real deployment on serverless hosts
-  (Vercel, etc.) switch to a hosted Postgres/MySQL database, since SQLite's local file won't persist
-  across serverless invocations.
-- Set real values for `SESSION_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `NEXT_PUBLIC_SITE_URL` before
-  deploying — never commit `.env`.
+- On Vercel, set `DATABASE_URL`, `DIRECT_URL`, `SESSION_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`,
+  `NEXT_PUBLIC_GOOGLE_FORM_URL`, `NEXT_PUBLIC_SITE_URL` as project environment variables — never commit
+  `.env`. After the first deploy (or any schema change), run `npx prisma migrate deploy` locally with
+  `DATABASE_URL`/`DIRECT_URL` pointed at the same Supabase project to apply migrations.

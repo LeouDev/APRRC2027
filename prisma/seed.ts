@@ -3,34 +3,33 @@ import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
+// Countries expected to attend APRRC '27, per the Asia Pacific Rotaract region.
+// Philippines gets host-country weight; the rest scaled roughly by typical
+// Rotaract district size in that country.
 const COUNTRY_WEIGHTS: Array<{ country: string; countryCode: string; weight: number }> = [
-  { country: "Philippines", countryCode: "PH", weight: 42 },
-  { country: "Japan", countryCode: "JP", weight: 18 },
+  { country: "Philippines", countryCode: "PH", weight: 45 },
+  { country: "Australia", countryCode: "AU", weight: 15 },
+  { country: "Japan", countryCode: "JP", weight: 14 },
   { country: "Singapore", countryCode: "SG", weight: 12 },
-  { country: "South Korea", countryCode: "KR", weight: 9 },
-  { country: "United States", countryCode: "US", weight: 7 },
-  { country: "Australia", countryCode: "AU", weight: 11 },
+  { country: "Hong Kong", countryCode: "HK", weight: 10 },
   { country: "Malaysia", countryCode: "MY", weight: 10 },
   { country: "Indonesia", countryCode: "ID", weight: 9 },
+  { country: "Taiwan", countryCode: "TW", weight: 9 },
   { country: "Thailand", countryCode: "TH", weight: 8 },
-  { country: "India", countryCode: "IN", weight: 8 },
-  { country: "Taiwan", countryCode: "TW", weight: 7 },
-  { country: "Hong Kong", countryCode: "HK", weight: 6 },
-  { country: "New Zealand", countryCode: "NZ", weight: 5 },
-  { country: "Vietnam", countryCode: "VN", weight: 6 },
-  { country: "China", countryCode: "CN", weight: 6 },
-  { country: "United Kingdom", countryCode: "GB", weight: 4 },
-  { country: "Canada", countryCode: "CA", weight: 4 },
-  { country: "United Arab Emirates", countryCode: "AE", weight: 3 },
-  { country: "Fiji", countryCode: "FJ", weight: 3 },
-  { country: "Papua New Guinea", countryCode: "PG", weight: 2 },
-  { country: "Nepal", countryCode: "NP", weight: 3 },
-  { country: "Sri Lanka", countryCode: "LK", weight: 3 },
-  { country: "Bangladesh", countryCode: "BD", weight: 2 },
-  { country: "Germany", countryCode: "DE", weight: 2 },
-  { country: "France", countryCode: "FR", weight: 2 },
-  { country: "Netherlands", countryCode: "NL", weight: 2 },
-  { country: "Switzerland", countryCode: "CH", weight: 1 },
+  { country: "South Korea", countryCode: "KR", weight: 8 },
+  { country: "China", countryCode: "CN", weight: 8 },
+  { country: "Vietnam", countryCode: "VN", weight: 7 },
+  { country: "New Zealand", countryCode: "NZ", weight: 7 },
+  { country: "Cambodia", countryCode: "KH", weight: 5 },
+  { country: "Myanmar", countryCode: "MM", weight: 5 },
+  { country: "Mongolia", countryCode: "MN", weight: 4 },
+  { country: "Fiji", countryCode: "FJ", weight: 4 },
+  { country: "Laos", countryCode: "LA", weight: 4 },
+  { country: "Macao", countryCode: "MO", weight: 4 },
+  { country: "Guam", countryCode: "GU", weight: 3 },
+  { country: "Timor-Leste", countryCode: "TL", weight: 3 },
+  { country: "French Polynesia", countryCode: "PF", weight: 3 },
+  { country: "American Samoa", countryCode: "AS", weight: 3 },
 ];
 
 const FIRST_NAMES = [

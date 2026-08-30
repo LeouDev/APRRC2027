@@ -22,11 +22,11 @@ export async function GET(req: NextRequest) {
   if (status) where.status = status;
   if (search) {
     where.OR = [
-      { firstName: { contains: search } },
-      { lastName: { contains: search } },
-      { email: { contains: search } },
-      { registrationNumber: { contains: search } },
-      { organization: { contains: search } },
+      { firstName: { contains: search, mode: "insensitive" } },
+      { lastName: { contains: search, mode: "insensitive" } },
+      { email: { contains: search, mode: "insensitive" } },
+      { registrationNumber: { contains: search, mode: "insensitive" } },
+      { organization: { contains: search, mode: "insensitive" } },
     ];
   }
 
