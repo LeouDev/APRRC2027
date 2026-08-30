@@ -1,0 +1,79 @@
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import type { ParticipantStatus, Prisma } from "@prisma/client";
+
+function csvEscape(value: unknown): string {
+  const str = value === null || value === undefined ? "" : String(value);
+  if (/[",\n]/.test(str)) {
+    return `"${str.replace(/"/g, '""')}"`;
+  }
+  return str;
+}
+
+const COLUMNS = [
+  "registrationNumber",
+  "firstName",
+  "lastName",
+  "email",
+  "phone",
+  "country",
+  "city",
+  "organization",
+  "position",
+  "status",
+  "registrationDate",
+  "adminNotes",
+] as const;
+
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const country = searchParams.get("country") || undefined;
+  const status = (searchParams.get("status") as ParticipantStatus) || undefined;
+  const dateFrom = searchParams.get("dateFrom") || undefined;
+  const dateTo = searchParams.get("dateTo") || undefined;
+  const search = searchParams.get("search") || undefined;
+
+  const where: Prisma.ParticipantWhereInput = {};
+  if (country) where.country = country;
+  if (status) where.status = status;
+  if (dateFrom || dateTo) {
+    where.registrationDate = {
+      ...(dateFrom ? { gte: new Date(dateFrom) } : {}),
+      ...(dateTo ? { lte: new Date(dateTo) } : {}),
+    };
+  }
+  if (search) {
+    where.OR = [
+      { firstName: { contains: search } },
+      { lastName: { contains: search } },
+      { email: { contains: search } },
+      { registrationNumber: { contains: search } },
+      { organization: { contains: search } },
+    ];
+  }
+
+  const participants = await prisma.participant.findMany({
+    where,
+    orderBy: { registrationDate: "desc" },
+  });
+
+  const rows = [
+    COLUMNS.join(","),
+    ...participants.map((p) =>
+      COLUMNS.map((col) => {
+        const value = col === "registrationDate" ? p.registrationDate.toISOString() : p[col];
+        return csvEscape(value);
+      }).join(",")
+    ),
+  ];
+
+  const csv = rows.join("\n");
+  const filename = `aprrc-2027-participants-${new Date().toISOString().slice(0, 10)}.csv`;
+
+  return new NextResponse(csv, {
+    headers: {
+      "Content-Type": "text/csv; charset=utf-8",
+      "Content-Disposition": `attachment; filename="${filename}"`,
+    },
+  });
+}
