@@ -26,6 +26,7 @@ export function Hero() {
           alt={`${EVENT.fullName} — ${EVENT.dateLabel}, ${EVENT.venue}`}
           className="block w-full"
           fallback={null}
+          priority
         />
       </div>
 

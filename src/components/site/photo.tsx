@@ -12,12 +12,16 @@ export function Photo({
   className,
   fallbackClassName,
   fallback,
+  priority = false,
 }: {
   src: string;
   alt: string;
   className?: string;
   fallbackClassName?: string;
   fallback?: React.ReactNode;
+  /** Set for above-the-fold images (e.g. the hero banner) so the browser
+   * doesn't defer loading it the way it would an offscreen image. */
+  priority?: boolean;
 }) {
   const [errored, setErrored] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -53,7 +57,8 @@ export function Photo({
       src={src}
       alt={alt}
       className={className}
-      loading="lazy"
+      loading={priority ? "eager" : "lazy"}
+      fetchPriority={priority ? "high" : "auto"}
       onError={() => setErrored(true)}
     />
   );
