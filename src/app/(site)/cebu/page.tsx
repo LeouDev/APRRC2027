@@ -18,6 +18,7 @@ import { EVENT } from "@/lib/event-config";
 import { BuntingFlags } from "@/components/site/bunting-flags";
 import { CebuGallery } from "@/components/site/cebu-gallery";
 import { CebuNav } from "@/components/site/cebu-nav";
+import { MichelinCarousel } from "@/components/site/michelin-carousel";
 import { Photo } from "@/components/site/photo";
 
 export const metadata: Metadata = {
@@ -270,6 +271,16 @@ export default function CebuPage() {
               From street-side carinderias to fine dining in IT Park and Cebu Business Park, plus a
               thriving café scene — there is something for every taste and budget.
             </p>
+          </div>
+        </div>
+
+        <div className="mt-14">
+          <h3 className="text-base font-semibold text-slate-900">Top 10 MICHELIN Guide Restaurants</h3>
+          <p className="mt-1 text-sm text-slate-500">
+            Cebu City&apos;s Bib Gourmand and Selected picks, straight from the MICHELIN Guide.
+          </p>
+          <div className="mt-6">
+            <MichelinCarousel />
           </div>
         </div>
       </section>
