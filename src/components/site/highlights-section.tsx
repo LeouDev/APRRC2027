@@ -1,4 +1,4 @@
-import { Mic2, PartyPopper, Trophy, Utensils } from "lucide-react";
+import { Mic2, PartyPopper, Palette, Utensils } from "lucide-react";
 
 const HIGHLIGHTS = [
   {
@@ -8,9 +8,9 @@ const HIGHLIGHTS = [
     tag: "Day 1",
   },
   {
-    icon: Trophy,
-    title: "Leadership Summit",
-    desc: "Plenary sessions and workshops led by regional and international speakers.",
+    icon: Palette,
+    title: "Cultural Workshops",
+    desc: "Hands-on sessions exploring Filipino arts, crafts and traditions with delegates from across the region.",
     tag: "Day 2",
   },
   {
