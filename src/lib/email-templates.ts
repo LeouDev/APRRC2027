@@ -88,7 +88,7 @@ td, th { mso-line-height-rule: exactly; }
 <!-- Header -->
 <tr>
   <td class="px-24" style="padding:32px 40px 24px 40px; background-color:#ffffff;" align="center">
-    <img src="${logoUrl}" width="72" height="72" alt="Rotaract logo" style="display:block; margin:0 auto 14px auto; width:72px; height:72px; border-radius:12px;">
+    <img src="${logoUrl}" width="240" height="80" alt="Rotaract Asia Pacific Multi-District Information Organization" style="display:block; margin:0 auto 14px auto; width:240px; height:80px;">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
       <td style="font-family:Arial, Helvetica, sans-serif; font-size:22px; font-weight:bold; letter-spacing:0.5px;">
         <span style="color:#2E8B3D;">APRRC</span><span style="color:#F6B31C;"> </span><span style="color:#1D6FC4;">'27</span>
