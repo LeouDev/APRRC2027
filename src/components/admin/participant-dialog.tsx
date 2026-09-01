@@ -50,8 +50,8 @@ export function ParticipantDialog({
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    if (participant) setForm(participant);
-  }, [participant]);
+    if (open && participant) setForm(participant);
+  }, [open, participant]);
 
   if (!participant) return null;
 
@@ -284,7 +284,13 @@ export function ParticipantDialog({
         </Tabs>
 
         <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
+          <Button
+            variant="outline"
+            onClick={() => {
+              if (participant) setForm(participant);
+              onOpenChange(false);
+            }}
+          >
             Cancel
           </Button>
           <Button onClick={handleSave} disabled={saving}>
