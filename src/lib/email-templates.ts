@@ -2,6 +2,7 @@ import "server-only";
 import { EVENT } from "@/lib/event-config";
 
 export type ConfirmationEmailData = {
+  id: string;
   registrationNumber: string;
   fullName: string;
   email: string;
@@ -19,6 +20,7 @@ function esc(value: string) {
 // placeholders were wired to real data.
 export function confirmationEmailHtml(data: ConfirmationEmailData): string {
   const logoUrl = `${EVENT.siteUrl}/images/email/rotaract-logo.png`;
+  const ticketUrl = `${EVENT.siteUrl}/ticket/${data.id}`;
   const registrationDate = data.registrationDate.toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
@@ -205,7 +207,7 @@ td, th { mso-line-height-rule: exactly; }
   <td class="px-24" style="padding:0 40px 12px 40px;" align="center">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" class="cta-btn"><tr>
       <td align="center" bgcolor="#C1272D" style="border-radius:10px;">
-        <a href="${EVENT.siteUrl}" style="display:inline-block; padding:16px 40px; font-family:Arial, Helvetica, sans-serif; font-size:16px; font-weight:bold; color:#ffffff; border-radius:10px;">View My Registration</a>
+        <a href="${ticketUrl}" style="display:inline-block; padding:16px 40px; font-family:Arial, Helvetica, sans-serif; font-size:16px; font-weight:bold; color:#ffffff; border-radius:10px;">View My Registration</a>
       </td>
     </tr></table>
   </td>

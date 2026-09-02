@@ -55,6 +55,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
     if (data.status === "CONFIRMED" && before?.status !== "CONFIRMED") {
       // Best-effort: a failed email should never fail the status update itself.
       sendConfirmationEmail({
+        id: participant.id,
         registrationNumber: participant.registrationNumber,
         fullName: `${participant.firstName} ${participant.lastName}`,
         email: participant.email,
