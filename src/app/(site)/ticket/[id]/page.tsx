@@ -50,7 +50,7 @@ export default async function TicketPage({ params }: { params: Promise<{ id: str
     );
   }
 
-  const qrDataUrl = await QRCode.toDataURL(ticket.registrationNumber, {
+  const qrDataUrl = await QRCode.toDataURL(`${EVENT.siteUrl}/ticket/${ticket.id}`, {
     margin: 1,
     width: 240,
     color: { dark: "#1a1a1a", light: "#ffffff" },
