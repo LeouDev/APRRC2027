@@ -48,6 +48,8 @@ export async function POST(req: NextRequest) {
   const data = parsed.data;
   const shirtSize = data.shirtSize === "Other" && data.shirtSizeOther ? data.shirtSizeOther : data.shirtSize;
   const district = data.district === "Other" && data.districtOther ? data.districtOther : data.district;
+  const paymentMethod =
+    data.paymentMethod === "OTHER" && data.paymentMethodOther ? data.paymentMethodOther : data.paymentMethod;
 
   // Proof of payment file
   const file = formData.get("proofOfPayment");
@@ -105,7 +107,7 @@ export async function POST(req: NextRequest) {
       dietaryRestrictions: data.dietaryRestrictions,
       medicalConditions: data.medicalConditions,
       specialAssistance: data.specialAssistance,
-      paymentMethod: data.paymentMethod,
+      paymentMethod,
       proofOfPayment: proofBuffer,
       proofOfPaymentMimeType: file.type,
       proofOfPaymentFileName: file.name,

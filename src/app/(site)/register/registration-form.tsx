@@ -78,6 +78,7 @@ export function RegistrationForm() {
 
   const shirtSize = watch("shirtSize");
   const district = watch("district");
+  const paymentMethod = watch("paymentMethod");
 
   async function handleNext() {
     const valid = await trigger(STEP_FIELDS[step]);
@@ -451,6 +452,13 @@ export function RegistrationForm() {
                   </label>
                 ))}
               </div>
+              {paymentMethod === "OTHER" && (
+                <Input
+                  className="mt-3"
+                  placeholder="Describe your payment method"
+                  {...register("paymentMethodOther")}
+                />
+              )}
               {errors.paymentMethod && <p className={errorCls}>{errors.paymentMethod.message}</p>}
             </div>
 

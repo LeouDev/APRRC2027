@@ -14,6 +14,7 @@ export const PAYMENT_METHOD_OPTIONS = [
   { value: "CASH_LEADERS_SUMMIT", label: "USD Cash during the APRRC Leaders Summit" },
   { value: "BANK_PHP", label: "Bank Payment through Peso (PHP) Account" },
   { value: "BANK_USD", label: "Bank Payment through USD Account" },
+  { value: "OTHER", label: "Other" },
 ] as const;
 
 const requiredText = (label: string, max = 200) =>
@@ -60,6 +61,7 @@ export const paymentSchema = z.object({
     PAYMENT_METHOD_OPTIONS.map((o) => o.value) as [string, ...string[]],
     { message: "Please select a payment method." }
   ),
+  paymentMethodOther: z.string().trim().max(200).optional().or(z.literal("")),
 });
 
 export const consentSchema = z.object({
