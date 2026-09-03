@@ -47,6 +47,7 @@ export async function POST(req: NextRequest) {
 
   const data = parsed.data;
   const shirtSize = data.shirtSize === "Other" && data.shirtSizeOther ? data.shirtSizeOther : data.shirtSize;
+  const district = data.district === "Other" && data.districtOther ? data.districtOther : data.district;
 
   // Proof of payment file
   const file = formData.get("proofOfPayment");
@@ -87,6 +88,7 @@ export async function POST(req: NextRequest) {
       countryCode: countryEntry?.code ?? "XX",
       passportNumber: data.passportNumber,
       rotaryId: data.rotaryId || null,
+      district,
       organization: data.organization,
       position: data.position,
       email: data.email,

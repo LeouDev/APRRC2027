@@ -21,6 +21,7 @@ const COLUMNS = [
   "phone",
   "country",
   "passportNumber",
+  "district",
   "organization",
   "position",
   "shirtSize",

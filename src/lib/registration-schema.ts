@@ -3,6 +3,13 @@ import { z } from "zod";
 export const GENDER_OPTIONS = ["Male", "Female", "Prefer not to say"] as const;
 export const SHIRT_SIZE_OPTIONS = ["XS", "S", "M", "L", "XL", "XXL", "XXXL", "Other"] as const;
 export const RELATIONSHIP_OPTIONS = ["Spouse", "Mother", "Father", "Siblings", "Other"] as const;
+export const DISTRICT_OPTIONS = [
+  "2580", "3300", "3310", "3330", "3340", "3350",
+  "3360", "3410", "3420", "3450", "3460", "3490", "3501", "3502", "3510",
+  "3521", "3640", "3650", "3690", "3721", "3770", "3780", "3790", "3800",
+  "3810", "3820", "3830", "3850", "3860", "3870",
+  "Other",
+] as const;
 export const PAYMENT_METHOD_OPTIONS = [
   { value: "CASH_LEADERS_SUMMIT", label: "USD Cash during the APRRC Leaders Summit" },
   { value: "BANK_PHP", label: "Bank Payment through Peso (PHP) Account" },
@@ -21,6 +28,8 @@ export const personalDetailsSchema = z.object({
   country: requiredText("Nationality", 100),
   passportNumber: requiredText("Passport number", 50),
   rotaryId: z.string().trim().max(50).optional().or(z.literal("")),
+  district: requiredText("District", 20),
+  districtOther: z.string().trim().max(20).optional().or(z.literal("")),
   organization: requiredText("Club name", 150),
   position: requiredText("Club position", 100),
   email: z.string().trim().email("Enter a valid email address."),

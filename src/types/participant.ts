@@ -12,6 +12,7 @@ export type Participant = {
   countryCode: string;
   passportNumber: string | null;
   rotaryId: string | null;
+  district: string | null;
   city: string | null;
   organization: string | null;
   position: string | null;

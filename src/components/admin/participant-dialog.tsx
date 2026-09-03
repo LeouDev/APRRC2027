@@ -226,6 +226,7 @@ export function ParticipantDialog({
                 <DetailRow label="Nationality" value={participant.country} />
                 <DetailRow label="Passport Number" value={participant.passportNumber} />
                 <DetailRow label="Rotary International ID" value={participant.rotaryId} />
+                <DetailRow label="District Number" value={participant.district} />
                 <DetailRow label="Club Name" value={participant.organization} />
                 <DetailRow label="Club Position" value={participant.position} />
                 <DetailRow label="Shirt Size" value={participant.shirtSize} />

@@ -15,6 +15,7 @@ import {
   GENDER_OPTIONS,
   SHIRT_SIZE_OPTIONS,
   RELATIONSHIP_OPTIONS,
+  DISTRICT_OPTIONS,
   PAYMENT_METHOD_OPTIONS,
   MAX_PROOF_FILE_BYTES,
   ACCEPTED_PROOF_TYPES,
@@ -32,6 +33,7 @@ const STEP_FIELDS: Array<(keyof RegistrationFormValues)[]> = [
     "dateOfBirth",
     "country",
     "passportNumber",
+    "district",
     "organization",
     "position",
     "email",
@@ -75,6 +77,7 @@ export function RegistrationForm() {
   });
 
   const shirtSize = watch("shirtSize");
+  const district = watch("district");
 
   async function handleNext() {
     const valid = await trigger(STEP_FIELDS[step]);
@@ -287,6 +290,19 @@ export function RegistrationForm() {
               <div>
                 <Label>Rotary International ID Number</Label>
                 <Input className={inputCls} {...register("rotaryId")} />
+              </div>
+              <div>
+                <Label required>District Number</Label>
+                <Select className={inputCls} invalid={!!errors.district} {...register("district")}>
+                  <option value="">Select…</option>
+                  {DISTRICT_OPTIONS.map((d) => (
+                    <option key={d} value={d}>{d}</option>
+                  ))}
+                </Select>
+                {district === "Other" && (
+                  <Input className="mt-3" placeholder="Enter your district number" {...register("districtOther")} />
+                )}
+                {errors.district && <p className={errorCls}>{errors.district.message}</p>}
               </div>
               <div>
                 <Label required>Club Name</Label>

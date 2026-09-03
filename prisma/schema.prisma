@@ -32,6 +32,7 @@ model Participant {
   countryCode     String
   passportNumber  String?
   rotaryId        String?
+  district        String? // Rotary/Rotaract District Number
   organization    String? // Club Name
   position        String? // Club Position
   email           String
