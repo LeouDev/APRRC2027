@@ -3,10 +3,13 @@ import { prisma } from "@/lib/prisma";
 import { nextRegistrationNumber } from "@/lib/registration-number";
 import { COUNTRY_BY_NAME } from "@/data/countries";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { EVENT } from "@/lib/event-config";
+import { createCheckoutSession } from "@/lib/paymongo";
 import {
   registrationSchema,
   MAX_PROOF_FILE_BYTES,
   ACCEPTED_PROOF_TYPES,
+  REGISTRATION_FEE_PHP_CENTAVOS,
 } from "@/lib/registration-schema";
 
 export async function POST(req: NextRequest) {
@@ -51,21 +54,31 @@ export async function POST(req: NextRequest) {
   const paymentMethod =
     data.paymentMethod === "OTHER" && data.paymentMethodOther ? data.paymentMethodOther : data.paymentMethod;
 
-  // Proof of payment file
-  const file = formData.get("proofOfPayment");
-  if (!(file instanceof File) || file.size === 0) {
-    return NextResponse.json({ error: "Proof of payment is required." }, { status: 400 });
+  // Proof of payment file — not applicable to card payments, which are
+  // verified directly against PayMongo instead of an uploaded receipt.
+  const isCardPayment = paymentMethod === "CARD";
+  let proofBuffer: Buffer<ArrayBuffer> | null = null;
+  let proofMimeType: string | null = null;
+  let proofFileName: string | null = null;
+
+  if (!isCardPayment) {
+    const file = formData.get("proofOfPayment");
+    if (!(file instanceof File) || file.size === 0) {
+      return NextResponse.json({ error: "Proof of payment is required." }, { status: 400 });
+    }
+    if (file.size > MAX_PROOF_FILE_BYTES) {
+      return NextResponse.json({ error: "Proof of payment file is too large (max 8MB)." }, { status: 400 });
+    }
+    if (!ACCEPTED_PROOF_TYPES.includes(file.type)) {
+      return NextResponse.json(
+        { error: "Proof of payment must be an image (JPG, PNG, WEBP, HEIC) or PDF." },
+        { status: 400 }
+      );
+    }
+    proofBuffer = Buffer.from(await file.arrayBuffer());
+    proofMimeType = file.type;
+    proofFileName = file.name;
   }
-  if (file.size > MAX_PROOF_FILE_BYTES) {
-    return NextResponse.json({ error: "Proof of payment file is too large (max 8MB)." }, { status: 400 });
-  }
-  if (!ACCEPTED_PROOF_TYPES.includes(file.type)) {
-    return NextResponse.json(
-      { error: "Proof of payment must be an image (JPG, PNG, WEBP, HEIC) or PDF." },
-      { status: 400 }
-    );
-  }
-  const proofBuffer = Buffer.from(await file.arrayBuffer());
 
   const existing = await prisma.participant.findFirst({ where: { email: data.email } });
   if (existing) {
@@ -109,12 +122,45 @@ export async function POST(req: NextRequest) {
       specialAssistance: data.specialAssistance,
       paymentMethod,
       proofOfPayment: proofBuffer,
-      proofOfPaymentMimeType: file.type,
-      proofOfPaymentFileName: file.name,
+      proofOfPaymentMimeType: proofMimeType,
+      proofOfPaymentFileName: proofFileName,
       status: "PENDING",
     },
-    select: { registrationNumber: true },
+    select: { id: true, registrationNumber: true, firstName: true, lastName: true, email: true },
   });
 
-  return NextResponse.json({ registrationNumber: participant.registrationNumber }, { status: 201 });
+  if (!isCardPayment) {
+    return NextResponse.json({ registrationNumber: participant.registrationNumber }, { status: 201 });
+  }
+
+  try {
+    const { id: checkoutSessionId, checkoutUrl } = await createCheckoutSession({
+      participantId: participant.id,
+      fullName: `${participant.firstName} ${participant.lastName}`,
+      email: participant.email,
+      amountCentavos: REGISTRATION_FEE_PHP_CENTAVOS,
+      successUrl: `${EVENT.siteUrl}/register/payment-complete?participant=${participant.id}`,
+      cancelUrl: `${EVENT.siteUrl}/register/payment-cancelled?participant=${participant.id}`,
+    });
+
+    await prisma.participant.update({
+      where: { id: participant.id },
+      data: { paymongoCheckoutSessionId: checkoutSessionId },
+    });
+
+    return NextResponse.json(
+      { registrationNumber: participant.registrationNumber, checkoutUrl },
+      { status: 201 }
+    );
+  } catch (err) {
+    console.error("PayMongo checkout session creation failed:", err);
+    return NextResponse.json(
+      {
+        error:
+          "Your registration was saved, but we couldn't start the card payment. Please contact the organizing committee to complete payment.",
+        registrationNumber: participant.registrationNumber,
+      },
+      { status: 502 }
+    );
+  }
 }

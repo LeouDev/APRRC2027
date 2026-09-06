@@ -55,10 +55,11 @@ model Participant {
   specialAssistance   String?
 
   // Payment
-  paymentMethod          String?
-  proofOfPayment         Bytes?
-  proofOfPaymentMimeType String?
-  proofOfPaymentFileName String?
+  paymentMethod             String?
+  proofOfPayment            Bytes?
+  proofOfPaymentMimeType    String?
+  proofOfPaymentFileName    String?
+  paymongoCheckoutSessionId String?
 
   city             String?
   status           ParticipantStatus @default(PENDING)

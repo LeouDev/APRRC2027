@@ -17,6 +17,7 @@ import {
   RELATIONSHIP_OPTIONS,
   DISTRICT_OPTIONS,
   PAYMENT_METHOD_OPTIONS,
+  REGISTRATION_FEE_PHP,
   MAX_PROOF_FILE_BYTES,
   ACCEPTED_PROOF_TYPES,
   type RegistrationFormValues,
@@ -110,7 +111,8 @@ export function RegistrationForm() {
   }
 
   async function onSubmit(values: RegistrationFormValues) {
-    if (!proofFile) {
+    const isCardPayment = values.paymentMethod === "CARD";
+    if (!isCardPayment && !proofFile) {
       setProofError("Proof of payment is required.");
       return;
     }
@@ -121,13 +123,17 @@ export function RegistrationForm() {
       Object.entries(values).forEach(([key, value]) => {
         fd.append(key, value === undefined || value === null ? "" : String(value));
       });
-      fd.append("proofOfPayment", proofFile);
+      if (proofFile) fd.append("proofOfPayment", proofFile);
 
       const res = await fetch("/api/register", { method: "POST", body: fd });
       const data = await res.json();
 
       if (!res.ok) {
         setSubmitError(data?.error ?? "Something went wrong. Please try again.");
+        return;
+      }
+      if (data.checkoutUrl) {
+        window.location.href = data.checkoutUrl;
         return;
       }
       setRegistrationNumber(data.registrationNumber);
@@ -431,13 +437,15 @@ export function RegistrationForm() {
               <span className="text-2xl font-black text-amber-900">$425 <span className="text-sm font-medium">USD</span></span>
             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-slate-50 p-5 text-sm text-slate-600">
-              <p className="font-semibold text-slate-900">Bank: EastWest Bank</p>
-              <p>Account Name: APRRC Convention Management Service</p>
-              <p>Account Number (USD): 300002597377 &middot; Bank Code: 010620014 &middot; SWIFT: EWBCPHMM</p>
-              <p className="mt-2 font-semibold text-slate-900">For Philippine Rotaractors</p>
-              <p>Account Number (PHP): 200069419746 (peso equivalent of $425 at the prevailing exchange rate)</p>
-            </div>
+            {paymentMethod !== "CARD" && (
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-5 text-sm text-slate-600">
+                <p className="font-semibold text-slate-900">Bank: EastWest Bank</p>
+                <p>Account Name: APRRC Convention Management Service</p>
+                <p>Account Number (USD): 300002597377 &middot; Bank Code: 010620014 &middot; SWIFT: EWBCPHMM</p>
+                <p className="mt-2 font-semibold text-slate-900">For Philippine Rotaractors</p>
+                <p>Account Number (PHP): 200069419746 (peso equivalent of $425 at the prevailing exchange rate)</p>
+              </div>
+            )}
 
             <div>
               <Label required>Payment Method</Label>
@@ -462,28 +470,38 @@ export function RegistrationForm() {
               {errors.paymentMethod && <p className={errorCls}>{errors.paymentMethod.message}</p>}
             </div>
 
-            <div>
-              <Label required>Proof of Payment</Label>
-              <label className="mt-1.5 flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-slate-300 px-6 py-8 text-center hover:border-amber-400">
-                <Upload className="h-6 w-6 text-slate-400" />
-                <span className="text-sm font-medium text-slate-600">
-                  {proofFile ? proofFile.name : "Click to upload a receipt (image or PDF, max 8MB)"}
-                </span>
-                <input
-                  type="file"
-                  accept={ACCEPTED_PROOF_TYPES.join(",")}
-                  onChange={handleFileChange}
-                  className="sr-only"
-                />
-              </label>
-              {proofError && <p className={errorCls}>{proofError}</p>}
-            </div>
+            {paymentMethod === "CARD" ? (
+              <div className="flex items-start gap-2.5 rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm text-blue-900">
+                <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0" />
+                You&apos;ll be redirected to a secure PayMongo checkout page to pay ₱{REGISTRATION_FEE_PHP.toLocaleString()}{" "}
+                by card. Your registration is confirmed automatically as soon as payment succeeds.
+              </div>
+            ) : (
+              <>
+                <div>
+                  <Label required>Proof of Payment</Label>
+                  <label className="mt-1.5 flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-slate-300 px-6 py-8 text-center hover:border-amber-400">
+                    <Upload className="h-6 w-6 text-slate-400" />
+                    <span className="text-sm font-medium text-slate-600">
+                      {proofFile ? proofFile.name : "Click to upload a receipt (image or PDF, max 8MB)"}
+                    </span>
+                    <input
+                      type="file"
+                      accept={ACCEPTED_PROOF_TYPES.join(",")}
+                      onChange={handleFileChange}
+                      className="sr-only"
+                    />
+                  </label>
+                  {proofError && <p className={errorCls}>{proofError}</p>}
+                </div>
 
-            <div className="flex items-start gap-2.5 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
-              <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0" />
-              Your registration will be marked <strong>Pending</strong> until the organizing committee
-              verifies your payment.
-            </div>
+                <div className="flex items-start gap-2.5 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+                  <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0" />
+                  Your registration will be marked <strong>Pending</strong> until the organizing committee
+                  verifies your payment.
+                </div>
+              </>
+            )}
 
             {submitError && (
               <p role="alert" className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">

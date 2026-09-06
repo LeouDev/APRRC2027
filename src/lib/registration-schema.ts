@@ -11,11 +11,18 @@ export const DISTRICT_OPTIONS = [
   "Other",
 ] as const;
 export const PAYMENT_METHOD_OPTIONS = [
+  { value: "CARD", label: "Pay by Card (Visa/Mastercard)" },
   { value: "CASH_LEADERS_SUMMIT", label: "USD Cash during the APRRC Leaders Summit" },
   { value: "BANK_PHP", label: "Bank Payment through Peso (PHP) Account" },
   { value: "BANK_USD", label: "Bank Payment through USD Account" },
   { value: "OTHER", label: "Other" },
 ] as const;
+
+// Registration fee is $425 USD; card payments run through PayMongo, which
+// only settles in PHP. This is the peso figure to lock in for card charges
+// (not recalculated per transaction against a live exchange rate).
+export const REGISTRATION_FEE_PHP = 27000;
+export const REGISTRATION_FEE_PHP_CENTAVOS = REGISTRATION_FEE_PHP * 100;
 
 const requiredText = (label: string, max = 200) =>
   z.string().trim().min(1, `${label} is required.`).max(max);
