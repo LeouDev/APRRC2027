@@ -22,7 +22,14 @@ export const PAYMENT_METHOD_OPTIONS = [
 // only settles in PHP. This is the peso figure to lock in for card charges
 // (not recalculated per transaction against a live exchange rate).
 export const REGISTRATION_FEE_PHP = 27000;
-export const REGISTRATION_FEE_PHP_CENTAVOS = REGISTRATION_FEE_PHP * 100;
+
+// PayMongo's Checkout Sessions API has no way to pass its ~3% + ₱15 card
+// fee on to the customer (that option only exists on a different, unrelated
+// endpoint) — so the card price is grossed up by hand to still net roughly
+// REGISTRATION_FEE_PHP after their cut, rather than that fee quietly coming
+// out of the organizers' payout.
+export const REGISTRATION_FEE_PHP_CARD = 27850;
+export const REGISTRATION_FEE_PHP_CARD_CENTAVOS = REGISTRATION_FEE_PHP_CARD * 100;
 
 const requiredText = (label: string, max = 200) =>
   z.string().trim().min(1, `${label} is required.`).max(max);

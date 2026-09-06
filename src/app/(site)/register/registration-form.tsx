@@ -17,7 +17,7 @@ import {
   RELATIONSHIP_OPTIONS,
   DISTRICT_OPTIONS,
   PAYMENT_METHOD_OPTIONS,
-  REGISTRATION_FEE_PHP,
+  REGISTRATION_FEE_PHP_CARD,
   MAX_PROOF_FILE_BYTES,
   ACCEPTED_PROOF_TYPES,
   type RegistrationFormValues,
@@ -432,9 +432,22 @@ export function RegistrationForm() {
           <div className="space-y-6">
             <h2 className="text-lg font-semibold text-slate-900">Payment</h2>
 
-            <div className="flex items-center justify-between rounded-xl border border-amber-200 bg-amber-50 px-5 py-4">
-              <span className="text-sm font-medium text-amber-900">Registration Fee</span>
-              <span className="text-2xl font-black text-amber-900">$425 <span className="text-sm font-medium">USD</span></span>
+            <div className="rounded-xl border border-amber-200 bg-amber-50 px-5 py-4">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-amber-900">Registration Fee</span>
+                {paymentMethod === "CARD" ? (
+                  <span className="text-2xl font-black text-amber-900">
+                    ₱{REGISTRATION_FEE_PHP_CARD.toLocaleString()} <span className="text-sm font-medium">PHP</span>
+                  </span>
+                ) : (
+                  <span className="text-2xl font-black text-amber-900">$425 <span className="text-sm font-medium">USD</span></span>
+                )}
+              </div>
+              {paymentMethod === "CARD" && (
+                <p className="mt-1 text-xs text-amber-800">
+                  Includes the card processing fee. You will be charged this amount in PHP.
+                </p>
+              )}
             </div>
 
             {paymentMethod !== "CARD" && (
@@ -473,8 +486,9 @@ export function RegistrationForm() {
             {paymentMethod === "CARD" ? (
               <div className="flex items-start gap-2.5 rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm text-blue-900">
                 <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0" />
-                You&apos;ll be redirected to a secure PayMongo checkout page to pay ₱{REGISTRATION_FEE_PHP.toLocaleString()}{" "}
-                by card. Your registration is confirmed automatically as soon as payment succeeds.
+                You&apos;ll be redirected to a secure PayMongo checkout page to pay{" "}
+                <strong>₱{REGISTRATION_FEE_PHP_CARD.toLocaleString()}</strong> by card (this includes the card
+                processing fee). Your registration is confirmed automatically as soon as payment succeeds.
               </div>
             ) : (
               <>

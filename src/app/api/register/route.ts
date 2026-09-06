@@ -9,7 +9,7 @@ import {
   registrationSchema,
   MAX_PROOF_FILE_BYTES,
   ACCEPTED_PROOF_TYPES,
-  REGISTRATION_FEE_PHP_CENTAVOS,
+  REGISTRATION_FEE_PHP_CARD_CENTAVOS,
 } from "@/lib/registration-schema";
 
 export async function POST(req: NextRequest) {
@@ -138,7 +138,7 @@ export async function POST(req: NextRequest) {
       participantId: participant.id,
       fullName: `${participant.firstName} ${participant.lastName}`,
       email: participant.email,
-      amountCentavos: REGISTRATION_FEE_PHP_CENTAVOS,
+      amountCentavos: REGISTRATION_FEE_PHP_CARD_CENTAVOS,
       successUrl: `${EVENT.siteUrl}/register/payment-complete?participant=${participant.id}`,
       cancelUrl: `${EVENT.siteUrl}/register/payment-cancelled?participant=${participant.id}`,
     });
