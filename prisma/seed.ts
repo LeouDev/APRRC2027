@@ -84,6 +84,16 @@ function weightedStatus(): ParticipantStatus {
 }
 
 async function main() {
+  // This wipes every participant row. Requires an explicit, hard-to-fat-finger
+  // confirmation so it can't be run by habit against the production database.
+  if (process.env.SEED_CONFIRM !== "yes-wipe-participants") {
+    console.error(
+      'Refusing to run: this deletes ALL participants and resets the admin password.\n' +
+      'Set SEED_CONFIRM=yes-wipe-participants to proceed (local/dev use only).'
+    );
+    process.exit(1);
+  }
+
   console.log("Seeding admin user...");
   const adminEmail = process.env.ADMIN_EMAIL ?? "admin@aprrc2027.org";
   const adminPassword = process.env.ADMIN_PASSWORD ?? "ChangeMe!2027";
