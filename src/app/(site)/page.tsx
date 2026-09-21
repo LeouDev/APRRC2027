@@ -2,6 +2,7 @@ import { Hero } from "@/components/site/hero";
 import { ParticipantCounterSection } from "@/components/site/participant-counter-section";
 import { CountriesSection } from "@/components/site/countries-section";
 import { AboutEventSection } from "@/components/site/about-event-section";
+import { WhoWeAreSection } from "@/components/site/who-we-are-section";
 import { CebuFeatureSection } from "@/components/site/cebu-feature-section";
 import { HighlightsSection } from "@/components/site/highlights-section";
 import { RegistrationCtaSection } from "@/components/site/registration-cta-section";
@@ -18,6 +19,7 @@ export default async function HomePage() {
       <ParticipantCounterSection totalConfirmed={summary.totalConfirmed} countryCount={summary.countryCount} />
       <CountriesSection countries={countries} />
       <AboutEventSection />
+      <WhoWeAreSection />
       <CebuFeatureSection />
       <HighlightsSection />
       <RegistrationCtaSection />

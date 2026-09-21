@@ -43,3 +43,6 @@ next-env.d.ts
 !.env.example
 *.db
 prisma/dev.db
+
+# raw photo dumps — resized copies for the site live in public/images/who-we-are
+/Pictures
