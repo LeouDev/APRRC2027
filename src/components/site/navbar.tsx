@@ -10,6 +10,7 @@ import { Photo } from "@/components/site/photo";
 const LINKS = [
   { href: "/#about", label: "About" },
   { href: "/#event", label: "Event" },
+  { href: "/#who-we-are", label: "Who We Are" },
   { href: "/register", label: "Registration" },
   { href: "/cebu", label: "Cebu" },
   { href: "/#contact", label: "Contact" },
