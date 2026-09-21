@@ -32,8 +32,10 @@ export function WhoWeAreSection() {
             The Community Behind {EVENT.name}
           </p>
           <p className="mt-5 text-base leading-relaxed text-slate-300">
-            {EVENT.fullName} is brought to you by {EVENT.organizers.join(", ")} — Rotaractors and
-            Rotarians from across the region working together to host you in {EVENT.city}.
+            Asia Pacific Regional Rotaract Conference 2027 is brought to you by Asia Pacific
+            Rotaract MDIO, Rotary International District 3860, Rotaract Clubs of RI District 3860
+            — Rotaractors and Rotarians from across the region working together to host you in
+            Cebu, Philippines
           </p>
         </div>
 
