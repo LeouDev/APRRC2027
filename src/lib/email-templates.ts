@@ -10,6 +10,7 @@ export type ConfirmationEmailData = {
 };
 
 const FACEBOOK_URL = "https://www.facebook.com/people/APRRC-2027-Cebu-Philippines/61589701801721/";
+const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/Id5Vla4r1gQ0wjchbgCJwv?mode=gi_t";
 
 function esc(value: string) {
   return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -208,6 +209,15 @@ td, th { mso-line-height-rule: exactly; }
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" class="cta-btn"><tr>
       <td align="center" bgcolor="#C1272D" style="border-radius:10px;">
         <a href="${ticketUrl}" style="display:inline-block; padding:16px 40px; font-family:Arial, Helvetica, sans-serif; font-size:16px; font-weight:bold; color:#ffffff; border-radius:10px;">View My Registration</a>
+      </td>
+    </tr></table>
+  </td>
+</tr>
+<tr>
+  <td class="px-24" style="padding:0 40px 12px 40px;" align="center">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" class="cta-btn"><tr>
+      <td align="center" bgcolor="#25D366" style="border-radius:10px;">
+        <a href="${WHATSAPP_GROUP_URL}" style="display:inline-block; padding:16px 40px; font-family:Arial, Helvetica, sans-serif; font-size:16px; font-weight:bold; color:#ffffff; border-radius:10px;">Join Our WhatsApp Group</a>
       </td>
     </tr></table>
   </td>
