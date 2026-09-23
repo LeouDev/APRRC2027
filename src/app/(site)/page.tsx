@@ -1,4 +1,5 @@
 import { Hero } from "@/components/site/hero";
+import { PromoVideoSection } from "@/components/site/promo-video-section";
 import { ParticipantCounterSection } from "@/components/site/participant-counter-section";
 import { CountriesSection } from "@/components/site/countries-section";
 import { AboutEventSection } from "@/components/site/about-event-section";
@@ -16,6 +17,7 @@ export default async function HomePage() {
   return (
     <>
       <Hero />
+      <PromoVideoSection />
       <ParticipantCounterSection totalConfirmed={summary.totalConfirmed} countryCount={summary.countryCount} />
       <CountriesSection countries={countries} />
       <AboutEventSection />
