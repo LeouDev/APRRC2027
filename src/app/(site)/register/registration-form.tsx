@@ -473,10 +473,24 @@ export function RegistrationForm() {
                 {PAYMENT_METHOD_OPTIONS.map((opt) => (
                   <label
                     key={opt.value}
-                    className="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 p-3.5 has-[:checked]:border-amber-400 has-[:checked]:bg-amber-50"
+                    className={cn(
+                      "flex items-center gap-3 rounded-xl border border-slate-200 p-3.5 has-[:checked]:border-amber-400 has-[:checked]:bg-amber-50",
+                      opt.disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer"
+                    )}
                   >
-                    <input type="radio" value={opt.value} className="h-4 w-4" {...register("paymentMethod")} />
+                    <input
+                      type="radio"
+                      value={opt.value}
+                      className="h-4 w-4"
+                      disabled={opt.disabled}
+                      {...register("paymentMethod")}
+                    />
                     <span className="text-sm text-slate-700">{opt.label}</span>
+                    {opt.disabled && (
+                      <span className="ml-auto rounded-full border border-slate-300 px-2 py-0.5 text-xs font-medium text-slate-500">
+                        Coming Soon
+                      </span>
+                    )}
                   </label>
                 ))}
               </div>
@@ -493,9 +507,12 @@ export function RegistrationForm() {
             {paymentMethod === "CARD" ? (
               <div className="flex items-start gap-2.5 rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm text-blue-900">
                 <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0" />
-                You&apos;ll be redirected to a secure PayMongo checkout page to pay{" "}
-                <strong>₱{REGISTRATION_FEE_PHP_CARD.toLocaleString()}</strong> by card (this includes the card
-                processing fee). Your registration is confirmed automatically as soon as payment succeeds.
+                <span>
+                  You&apos;ll be redirected to a secure PayMongo checkout page to pay{" "}
+                  <strong>₱{REGISTRATION_FEE_PHP_CARD.toLocaleString()}</strong> by card (this includes the
+                  card processing fee). Your registration is confirmed automatically as soon as payment
+                  succeeds.
+                </span>
               </div>
             ) : (
               <>
@@ -518,8 +535,10 @@ export function RegistrationForm() {
 
                 <div className="flex items-start gap-2.5 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
                   <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0" />
-                  Your registration will be marked <strong>Pending</strong> until the organizing committee
-                  verifies your payment.
+                  <span>
+                    Your registration will be marked <strong>Pending</strong> until the organizing
+                    committee verifies your payment.
+                  </span>
                 </div>
               </>
             )}

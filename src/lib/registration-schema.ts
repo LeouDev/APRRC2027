@@ -4,11 +4,12 @@ export const GENDER_OPTIONS = ["Male", "Female", "Prefer not to say"] as const;
 export const SHIRT_SIZE_OPTIONS = ["XS", "S", "M", "L", "XL", "XXL", "XXXL", "Other"] as const;
 export const RELATIONSHIP_OPTIONS = ["Spouse", "Mother", "Father", "Siblings", "Other"] as const;
 export const PAYMENT_METHOD_OPTIONS = [
-  { value: "CARD", label: "Pay by Card (Visa/Mastercard)" },
-  { value: "CASH_LEADERS_SUMMIT", label: "USD Cash during the APRRC Leaders Summit" },
-  { value: "BANK_PHP", label: "Bank Payment through Peso (PHP) Account" },
-  { value: "BANK_USD", label: "Bank Payment through USD Account" },
-  { value: "OTHER", label: "Other" },
+  // Temporarily disabled on the form — flip this back off to re-enable.
+  { value: "CARD", label: "Pay by Card (Visa/Mastercard)", disabled: true },
+  { value: "CASH_LEADERS_SUMMIT", label: "USD Cash during the APRRC Leaders Summit", disabled: false },
+  { value: "BANK_PHP", label: "Bank Payment through Peso (PHP) Account", disabled: false },
+  { value: "BANK_USD", label: "Bank Payment through USD Account", disabled: false },
+  { value: "OTHER", label: "Other", disabled: false },
 ] as const;
 
 // Registration fee is $425 USD; card payments run through PayMongo, which
