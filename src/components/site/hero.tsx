@@ -44,7 +44,7 @@ export function Hero() {
                 {part.text}
               </span>
             ))}
-            <span className="block text-slate-900">Cebu, Philippines</span>
+            <span className="block text-slate-900">{EVENT.city}, {EVENT.country}</span>
           </h1>
 
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-600 sm:text-xl">

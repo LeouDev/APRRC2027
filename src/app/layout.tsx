@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const title = `${EVENT.name} | Asia Pacific Regional Rotaract Conference in Cebu, Philippines`;
+const title = `${EVENT.name} | Asia Pacific Regional Rotaract Conference in ${EVENT.city}, ${EVENT.country}`;
 const description = `${EVENT.fullName} — ${EVENT.dateLabel} at ${EVENT.venue} in ${EVENT.city}, ${EVENT.country}. Join Rotaractors from across the Asia Pacific. Register now.`;
 
 export const metadata: Metadata = {

@@ -39,7 +39,7 @@ export default function OgImage() {
           <span style={{ color: "#c0392b" }}>&apos;27</span>
         </div>
         <div style={{ display: "flex", fontSize: 44, fontWeight: 800, color: "#0f172a", marginTop: 8 }}>
-          Cebu, Philippines
+          {EVENT.city}, {EVENT.country}
         </div>
         <div style={{ display: "flex", fontSize: 32, color: "#475569", marginTop: 28 }}>
           {EVENT.dateLabel} &middot; {EVENT.venue}

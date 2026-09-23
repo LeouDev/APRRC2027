@@ -34,8 +34,8 @@ export function WhoWeAreSection() {
           <p className="mt-5 text-base leading-relaxed text-slate-300">
             Asia Pacific Regional Rotaract Conference 2027 is brought to you by Asia Pacific
             Rotaract MDIO, Rotary International District 3860, Rotaract Clubs of RI District 3860
-            — Rotaractors and Rotarians from across the region working together to host you in
-            Cebu, Philippines
+            — Rotaractors and Rotarians from across the region working together to host you in{" "}
+            {EVENT.city}, {EVENT.country}
           </p>
         </div>
 
