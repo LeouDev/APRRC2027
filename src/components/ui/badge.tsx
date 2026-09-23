@@ -13,6 +13,7 @@ const badgeVariants = cva(
         pending: "border-amber-200 bg-amber-50 text-amber-700",
         cancelled: "border-slate-200 bg-slate-100 text-slate-500",
         rejected: "border-red-200 bg-red-50 text-red-700",
+        earlyBird: "border-violet-200 bg-violet-50 text-violet-700",
       },
     },
     defaultVariants: { variant: "default" },

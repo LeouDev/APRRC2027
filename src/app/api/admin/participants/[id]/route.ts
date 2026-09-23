@@ -14,6 +14,7 @@ const updateSchema = z.object({
   organization: z.string().max(150).nullable().optional(),
   position: z.string().max(150).nullable().optional(),
   status: z.enum(["PENDING", "CONFIRMED", "CANCELLED", "REJECTED"]).optional(),
+  isEarlyBird: z.boolean().optional(),
   adminNotes: z.string().max(2000).nullable().optional(),
 });
 

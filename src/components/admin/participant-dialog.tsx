@@ -14,8 +14,10 @@ import {
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
 import { Input, Select, Textarea } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/ui/status-badge";
+import { EarlyBirdBadge } from "@/components/ui/early-bird-badge";
 import { COUNTRIES } from "@/data/countries";
 import { formatDate } from "@/lib/utils";
 import type { Participant } from "@/types/participant";
@@ -71,6 +73,7 @@ export function ParticipantDialog({
           organization: form.organization || null,
           position: form.position || null,
           status: form.status,
+          isEarlyBird: form.isEarlyBird,
           adminNotes: form.adminNotes || null,
         }),
       });
@@ -94,6 +97,7 @@ export function ParticipantDialog({
               {participant.firstName} {participant.lastName}
             </DialogTitle>
             <StatusBadge status={(form.status as Participant["status"]) ?? participant.status} />
+            {(form.isEarlyBird ?? participant.isEarlyBird) && <EarlyBirdBadge />}
           </div>
           <DialogDescription>
             {participant.registrationNumber} &middot; Registered {formatDate(participant.registrationDate)}
@@ -194,6 +198,14 @@ export function ParticipantDialog({
               </div>
             </div>
 
+            <label className="flex cursor-pointer items-center gap-2.5 text-sm text-slate-700">
+              <Checkbox
+                checked={form.isEarlyBird ?? false}
+                onCheckedChange={(checked) => setForm((f) => ({ ...f, isEarlyBird: checked === true }))}
+              />
+              Early Bird registrant
+            </label>
+
             <div>
               <Label>Admin Notes</Label>
               <Textarea
@@ -223,8 +235,13 @@ export function ParticipantDialog({
                   label="Date of Birth"
                   value={participant.dateOfBirth ? formatDate(participant.dateOfBirth) : null}
                 />
+                <DetailRow label="Preferred English Name" value={participant.preferredEnglishName} />
                 <DetailRow label="Nationality" value={participant.country} />
                 <DetailRow label="Passport Number" value={participant.passportNumber} />
+                <DetailRow
+                  label="Passport Expiration Date"
+                  value={participant.passportExpirationDate ? formatDate(participant.passportExpirationDate) : null}
+                />
                 <DetailRow label="Rotary International ID" value={participant.rotaryId} />
                 <DetailRow label="District Number" value={participant.district} />
                 <DetailRow label="Club Name" value={participant.organization} />

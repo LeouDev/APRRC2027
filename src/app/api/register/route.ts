@@ -50,7 +50,6 @@ export async function POST(req: NextRequest) {
 
   const data = parsed.data;
   const shirtSize = data.shirtSize === "Other" && data.shirtSizeOther ? data.shirtSizeOther : data.shirtSize;
-  const district = data.district === "Other" && data.districtOther ? data.districtOther : data.district;
   const paymentMethod =
     data.paymentMethod === "OTHER" && data.paymentMethodOther ? data.paymentMethodOther : data.paymentMethod;
 
@@ -97,13 +96,15 @@ export async function POST(req: NextRequest) {
       firstName: data.firstName,
       middleName: data.middleName || null,
       lastName: data.lastName,
+      preferredEnglishName: data.preferredEnglishName,
       gender: data.gender,
       dateOfBirth: new Date(data.dateOfBirth),
       country: data.country,
       countryCode: countryEntry?.code ?? "XX",
       passportNumber: data.passportNumber,
+      passportExpirationDate: new Date(data.passportExpirationDate),
       rotaryId: data.rotaryId || null,
-      district,
+      district: data.district,
       organization: data.organization,
       position: data.position,
       email: data.email,

@@ -23,25 +23,27 @@ model Participant {
   // fields required at the DB level, since admin manual-add and CSV import
   // don't collect the full registration-form field set. The public
   // registration form enforces its own stricter "required" rules via Zod.
-  firstName       String
-  middleName      String?
-  lastName        String
-  gender          String?
-  dateOfBirth     DateTime?
-  country         String // nationality — also used for the public "countries represented" stats
-  countryCode     String
-  passportNumber  String?
-  rotaryId        String?
-  district        String? // Rotary/Rotaract District Number
-  organization    String? // Club Name
-  position        String? // Club Position
-  email           String
-  phone           String?
-  alternatePhone  String?
-  facebookAccount String?
-  whatsapp        String?
-  instagram       String?
-  shirtSize       String?
+  firstName              String
+  middleName             String?
+  lastName               String
+  preferredEnglishName   String?
+  gender                 String?
+  dateOfBirth            DateTime?
+  country                String // nationality — also used for the public "countries represented" stats
+  countryCode            String
+  passportNumber         String?
+  passportExpirationDate DateTime?
+  rotaryId               String?
+  district               String? // Rotary/Rotaract District Number
+  organization           String? // Club Name
+  position               String? // Club Position
+  email                  String
+  phone                  String?
+  alternatePhone         String?
+  facebookAccount        String?
+  whatsapp               String?
+  instagram              String?
+  shirtSize              String?
 
   // Emergency contact
   emergencyContactName         String?
@@ -63,6 +65,7 @@ model Participant {
 
   city             String?
   status           ParticipantStatus @default(PENDING)
+  isEarlyBird      Boolean           @default(false)
   adminNotes       String?
   registrationDate DateTime          @default(now())
   createdAt        DateTime          @default(now())

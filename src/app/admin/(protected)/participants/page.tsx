@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { Search, ArrowUpDown, Eye, Pencil, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
 import { Input, Select } from "@/components/ui/input";
 import { StatusBadge } from "@/components/ui/status-badge";
+import { EarlyBirdBadge } from "@/components/ui/early-bird-badge";
 import { ExportButton } from "@/components/admin/export-button";
 import { AddParticipantDialog } from "@/components/admin/add-participant-dialog";
 import { ImportCsvDialog } from "@/components/admin/import-csv-dialog";
@@ -202,7 +203,10 @@ export default function ParticipantsPage() {
                     <td className="max-w-[12rem] truncate px-4 py-3 text-slate-600">{p.email}</td>
                     <td className="whitespace-nowrap px-4 py-3 text-slate-600">{formatDate(p.registrationDate)}</td>
                     <td className="whitespace-nowrap px-4 py-3">
-                      <StatusBadge status={p.status} />
+                      <div className="flex items-center gap-1.5">
+                        <StatusBadge status={p.status} />
+                        {p.isEarlyBird && <EarlyBirdBadge />}
+                      </div>
                     </td>
                     <td className="whitespace-nowrap px-4 py-3 text-right">
                       <div className="flex items-center justify-end gap-1">

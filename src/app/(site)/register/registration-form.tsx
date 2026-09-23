@@ -15,7 +15,6 @@ import {
   GENDER_OPTIONS,
   SHIRT_SIZE_OPTIONS,
   RELATIONSHIP_OPTIONS,
-  DISTRICT_OPTIONS,
   PAYMENT_METHOD_OPTIONS,
   REGISTRATION_FEE_PHP_CARD,
   MAX_PROOF_FILE_BYTES,
@@ -30,10 +29,12 @@ const STEP_FIELDS: Array<(keyof RegistrationFormValues)[]> = [
   [
     "firstName",
     "lastName",
+    "preferredEnglishName",
     "gender",
     "dateOfBirth",
     "country",
     "passportNumber",
+    "passportExpirationDate",
     "district",
     "organization",
     "position",
@@ -78,7 +79,6 @@ export function RegistrationForm() {
   });
 
   const shirtSize = watch("shirtSize");
-  const district = watch("district");
   const paymentMethod = watch("paymentMethod");
 
   async function handleNext() {
@@ -267,6 +267,11 @@ export function RegistrationForm() {
                 {errors.lastName && <p className={errorCls}>{errors.lastName.message}</p>}
               </div>
               <div>
+                <Label required>Preferred English Name</Label>
+                <Input className={inputCls} invalid={!!errors.preferredEnglishName} {...register("preferredEnglishName")} />
+                {errors.preferredEnglishName && <p className={errorCls}>{errors.preferredEnglishName.message}</p>}
+              </div>
+              <div>
                 <Label required>Gender</Label>
                 <Select className={inputCls} invalid={!!errors.gender} {...register("gender")}>
                   <option value="">Select…</option>
@@ -295,20 +300,22 @@ export function RegistrationForm() {
                 {errors.passportNumber && <p className={errorCls}>{errors.passportNumber.message}</p>}
               </div>
               <div>
+                <Label required>Passport Expiration Date</Label>
+                <Input
+                  type="date"
+                  className={inputCls}
+                  invalid={!!errors.passportExpirationDate}
+                  {...register("passportExpirationDate")}
+                />
+                {errors.passportExpirationDate && <p className={errorCls}>{errors.passportExpirationDate.message}</p>}
+              </div>
+              <div>
                 <Label>Rotary International ID Number</Label>
                 <Input className={inputCls} {...register("rotaryId")} />
               </div>
               <div>
                 <Label required>District Number</Label>
-                <Select className={inputCls} invalid={!!errors.district} {...register("district")}>
-                  <option value="">Select…</option>
-                  {DISTRICT_OPTIONS.map((d) => (
-                    <option key={d} value={d}>{d}</option>
-                  ))}
-                </Select>
-                {district === "Other" && (
-                  <Input className="mt-3" placeholder="Enter your district number" {...register("districtOther")} />
-                )}
+                <Input className={inputCls} invalid={!!errors.district} {...register("district")} />
                 {errors.district && <p className={errorCls}>{errors.district.message}</p>}
               </div>
               <div>

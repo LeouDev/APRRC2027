@@ -4,6 +4,7 @@ export type Participant = {
   firstName: string;
   middleName: string | null;
   lastName: string;
+  preferredEnglishName: string | null;
   gender: string | null;
   dateOfBirth: string | null;
   email: string;
@@ -11,6 +12,7 @@ export type Participant = {
   country: string;
   countryCode: string;
   passportNumber: string | null;
+  passportExpirationDate: string | null;
   rotaryId: string | null;
   district: string | null;
   city: string | null;
@@ -31,6 +33,7 @@ export type Participant = {
   paymentMethod: string | null;
   proofOfPaymentFileName: string | null;
   status: "PENDING" | "CONFIRMED" | "CANCELLED" | "REJECTED";
+  isEarlyBird: boolean;
   adminNotes: string | null;
   registrationDate: string;
   createdAt: string;
