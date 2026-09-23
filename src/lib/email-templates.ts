@@ -21,6 +21,7 @@ function esc(value: string) {
 // placeholders were wired to real data.
 export function confirmationEmailHtml(data: ConfirmationEmailData): string {
   const logoUrl = `${EVENT.siteUrl}/images/email/rotaract-logo.png`;
+  const siteLogoUrl = `${EVENT.siteUrl}/images/logo.png`;
   const ticketUrl = `${EVENT.siteUrl}/ticket/${data.id}`;
   const registrationDate = data.registrationDate.toLocaleDateString("en-US", {
     year: "numeric",
@@ -62,6 +63,7 @@ td, th { mso-line-height-rule: exactly; }
     .info-value { padding-bottom: 14px !important; }
     .cta-btn { width: 100% !important; }
     .cta-btn a { display: block !important; }
+    .logo-col { display: block !important; width: 100% !important; text-align: center !important; padding: 0 0 14px 0 !important; border-left: 0 !important; }
   }
 </style>
 </head>
@@ -91,7 +93,14 @@ td, th { mso-line-height-rule: exactly; }
 <!-- Header -->
 <tr>
   <td class="px-24" style="padding:32px 40px 24px 40px; background-color:#ffffff;" align="center">
-    <img src="${logoUrl}" width="240" height="80" alt="Rotaract Asia Pacific Multi-District Information Organization" style="display:block; margin:0 auto 14px auto; width:240px; height:80px;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto 14px auto;"><tr>
+      <td class="logo-col" style="padding-right:18px;" align="center" valign="middle">
+        <img src="${logoUrl}" width="220" height="73" alt="Rotaract Asia Pacific Multi-District Information Organization" style="display:block; margin:0 auto; width:220px; height:73px;">
+      </td>
+      <td class="logo-col" style="padding-left:18px; border-left:1px solid #e6e2db;" align="center" valign="middle">
+        <img src="${siteLogoUrl}" width="66" height="66" alt="${EVENT.name}" style="display:block; margin:0 auto; width:66px; height:66px;">
+      </td>
+    </tr></table>
     <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
       <td style="font-family:Arial, Helvetica, sans-serif; font-size:22px; font-weight:bold; letter-spacing:0.5px;">
         <span style="color:#2E8B3D;">APRRC</span><span style="color:#F6B31C;"> </span><span style="color:#1D6FC4;">'27</span>

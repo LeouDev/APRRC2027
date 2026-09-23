@@ -2,7 +2,7 @@ export const EVENT = {
   name: "APRRC '27",
   fullName: "Asia Pacific Regional Rotaract Conference 2027",
   tagline: "A Fiesta of Service, Friendship and Fun across the Asia Pacific.",
-  city: "Cebu City",
+  city: "Mactan, Cebu",
   country: "Philippines",
   venue: "Jpark Island Resort & Waterpark",
   dateLabel: "May 13–16, 2027",
