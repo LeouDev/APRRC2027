@@ -61,7 +61,7 @@ export default function CebuPage() {
       </section>
 
       {/* ABOUT */}
-      <section id="about" className="scroll-mt-[120px] sm:scroll-mt-[192px] lg:scroll-mt-[208px] mx-auto max-w-6xl px-5 py-20 sm:px-8">
+      <section id="about" className="scroll-mt-[88px] mx-auto max-w-6xl px-5 py-20 sm:px-8">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
             <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-amber-600">About Cebu</h2>
@@ -123,7 +123,7 @@ export default function CebuPage() {
       </section>
 
       {/* GETTING THERE */}
-      <section id="getting-there" className="scroll-mt-[120px] sm:scroll-mt-[192px] lg:scroll-mt-[208px] bg-slate-50 py-20">
+      <section id="getting-there" className="scroll-mt-[88px] bg-slate-50 py-20">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-amber-600">Getting to Cebu</h2>
           <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900">Plan Your Journey</p>
@@ -159,7 +159,7 @@ export default function CebuPage() {
       </section>
 
       {/* WHERE TO STAY */}
-      <section id="stay" className="scroll-mt-[120px] sm:scroll-mt-[192px] lg:scroll-mt-[208px] mx-auto max-w-6xl px-5 py-20 sm:px-8">
+      <section id="stay" className="scroll-mt-[88px] mx-auto max-w-6xl px-5 py-20 sm:px-8">
         <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-amber-600">Where to Stay</h2>
         <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900">Accommodation for Every Delegate</p>
         <div className="mt-10 grid gap-6 sm:grid-cols-3">
@@ -182,7 +182,7 @@ export default function CebuPage() {
       </section>
 
       {/* TRANSPORTATION */}
-      <section id="transport" className="scroll-mt-[120px] sm:scroll-mt-[192px] lg:scroll-mt-[208px] bg-slate-50 py-20">
+      <section id="transport" className="scroll-mt-[88px] bg-slate-50 py-20">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-amber-600">Transportation</h2>
           <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900">Getting Around the City</p>
@@ -204,7 +204,7 @@ export default function CebuPage() {
       </section>
 
       {/* THINGS TO DO */}
-      <section id="things-to-do" className="scroll-mt-[120px] sm:scroll-mt-[192px] lg:scroll-mt-[208px] mx-auto max-w-6xl px-5 py-20 sm:px-8">
+      <section id="things-to-do" className="scroll-mt-[88px] mx-auto max-w-6xl px-5 py-20 sm:px-8">
         <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-amber-600">Things to Do</h2>
         <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900">Tourist Attractions & Culture</p>
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -251,7 +251,7 @@ export default function CebuPage() {
       </section>
 
       {/* BEACHES */}
-      <section id="beaches" className="scroll-mt-[120px] sm:scroll-mt-[192px] lg:scroll-mt-[208px] bg-gradient-to-b from-sky-50 to-white py-20">
+      <section id="beaches" className="scroll-mt-[88px] bg-gradient-to-b from-sky-50 to-white py-20">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sky-600">Beaches & Islands</h2>
           <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900">Island Hopping Paradise</p>
@@ -297,7 +297,7 @@ export default function CebuPage() {
       </section>
 
       {/* FOOD */}
-      <section id="food" className="scroll-mt-[120px] sm:scroll-mt-[192px] lg:scroll-mt-[208px] mx-auto max-w-6xl px-5 py-20 sm:px-8">
+      <section id="food" className="scroll-mt-[88px] mx-auto max-w-6xl px-5 py-20 sm:px-8">
         <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-amber-600">Food & Restaurants</h2>
         <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900">A Feast Awaits</p>
         <div className="mt-10 grid gap-6 sm:grid-cols-2">
@@ -331,7 +331,7 @@ export default function CebuPage() {
       </section>
 
       {/* PRACTICAL INFO */}
-      <section id="practical" className="scroll-mt-[120px] sm:scroll-mt-[192px] lg:scroll-mt-[208px] relative overflow-hidden bg-gradient-to-br from-blue-700 via-blue-600 to-teal-600 py-20 text-white">
+      <section id="practical" className="scroll-mt-[88px] relative overflow-hidden bg-gradient-to-br from-blue-700 via-blue-600 to-teal-600 py-20 text-white">
         <div className="absolute -left-24 bottom-0 h-80 w-80 rounded-full bg-amber-400/20 blur-[110px]" />
         <div className="absolute -right-24 top-0 h-80 w-80 rounded-full bg-rose-400/20 blur-[110px]" />
         <div className="relative mx-auto max-w-6xl px-5 sm:px-8">

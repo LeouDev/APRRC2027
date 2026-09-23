@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const NAV = [
   { id: "about", label: "About Cebu" },
@@ -13,8 +13,12 @@ const NAV = [
   { id: "practical", label: "Travel Tips" },
 ];
 
+// Matches the site's fixed navbar height plus a little clearance (also
+// used as each section's scroll-mt in the Cebu page) — the line below
+// which a section counts as "in view" for the active-tab highlight.
+const ACTIVE_THRESHOLD_PX = 88;
+
 export function CebuNav() {
-  const navRef = useRef<HTMLElement>(null);
   const [activeId, setActiveId] = useState(NAV[0].id);
 
   useEffect(() => {
@@ -23,10 +27,9 @@ export function CebuNav() {
     );
 
     function updateActive() {
-      const navBottom = navRef.current?.getBoundingClientRect().bottom ?? 0;
       let current = sections[0]?.id;
       for (const section of sections) {
-        if (section.getBoundingClientRect().top <= navBottom + 1) {
+        if (section.getBoundingClientRect().top <= ACTIVE_THRESHOLD_PX + 1) {
           current = section.id;
         }
       }
@@ -49,10 +52,7 @@ export function CebuNav() {
   }, []);
 
   return (
-    <nav
-      ref={navRef}
-      className="sticky top-[64px] z-30 border-b border-slate-200 bg-white/95 backdrop-blur-md sm:top-[136px] lg:top-[152px]"
-    >
+    <nav className="border-b border-slate-200 bg-white">
       <div className="scrollbar-thin mx-auto flex max-w-6xl gap-6 overflow-x-auto px-5 py-3 text-sm font-medium text-slate-600 sm:px-8">
         {NAV.map((item) => (
           <a
