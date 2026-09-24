@@ -3,6 +3,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { nextRegistrationNumber } from "@/lib/registration-number";
 import { COUNTRY_BY_NAME } from "@/data/countries";
+import { sendConfirmationEmail } from "@/lib/email";
 import type { Prisma, ParticipantStatus } from "@prisma/client";
 
 const SORTABLE_FIELDS = new Set(["registrationDate", "firstName", "lastName", "country", "status", "createdAt"]);
@@ -96,6 +97,17 @@ export async function POST(req: NextRequest) {
       adminNotes: data.adminNotes || null,
     },
   });
+
+  if (participant.status === "CONFIRMED") {
+    // Best-effort: a failed email should never fail the creation itself.
+    sendConfirmationEmail({
+      id: participant.id,
+      registrationNumber: participant.registrationNumber,
+      fullName: `${participant.firstName} ${participant.lastName}`,
+      email: participant.email,
+      registrationDate: participant.registrationDate,
+    }).catch((err) => console.error("sendConfirmationEmail failed:", err));
+  }
 
   return NextResponse.json({ participant }, { status: 201 });
 }
