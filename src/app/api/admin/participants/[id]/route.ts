@@ -40,9 +40,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   const countryCode = data.country ? COUNTRY_BY_NAME.get(data.country)?.code : undefined;
 
   try {
-    const before = data.status
-      ? await prisma.participant.findUnique({ where: { id }, select: { status: true } })
-      : null;
+    const before = await prisma.participant.findUnique({ where: { id }, select: { status: true, email: true } });
 
     const participant = await prisma.participant.update({
       where: { id },
@@ -53,8 +51,18 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
       omit: { proofOfPayment: true },
     });
 
-    if (data.status === "CONFIRMED" && before?.status !== "CONFIRMED") {
-      // Best-effort: a failed email should never fail the status update itself.
+    const finalStatus = data.status ?? before?.status;
+    const justConfirmed = data.status === "CONFIRMED" && before?.status !== "CONFIRMED";
+    // A ticket getting reassigned to someone else (e.g. the original registrant
+    // can't attend and hands it off) — same signal a fresh confirmation should
+    // go out, just without a status change to key off since it was already
+    // Confirmed. Editing a typo in the email obviously fires this too, but
+    // that's harmless: the "new" address is the correct one to notify.
+    const transferredWhileConfirmed =
+      finalStatus === "CONFIRMED" && !justConfirmed && !!before && data.email !== undefined && data.email !== before.email;
+
+    if (justConfirmed || transferredWhileConfirmed) {
+      // Best-effort: a failed email should never fail the update itself.
       sendConfirmationEmail({
         id: participant.id,
         registrationNumber: participant.registrationNumber,
