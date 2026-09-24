@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckCircle2, ChevronLeft, ChevronRight, Copy, Loader2, ShieldCheck, Upload } from "lucide-react";
+import { CheckCircle2, ChevronLeft, ChevronRight, Copy, Loader2, Ruler, ShieldCheck, Upload } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input, Select, Textarea } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -357,7 +357,18 @@ export function RegistrationForm() {
             </div>
 
             <div>
-              <Label required>APRRC Shirt Size</Label>
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <Label required>APRRC Shirt Size</Label>
+                <a
+                  href="/images/shirt-size-chart.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-xs font-medium text-amber-600 hover:text-amber-700 hover:underline"
+                >
+                  <Ruler className="h-3.5 w-3.5" />
+                  View size chart (inches)
+                </a>
+              </div>
               <div className="mt-2 flex flex-wrap gap-2">
                 {SHIRT_SIZE_OPTIONS.map((size) => (
                   <label key={size} className="cursor-pointer">
