@@ -5,7 +5,6 @@ import { toast } from "sonner";
 import { Search, ArrowUpDown, Eye, Pencil, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
 import { Input, Select } from "@/components/ui/input";
 import { StatusBadge } from "@/components/ui/status-badge";
-import { EarlyBirdBadge } from "@/components/ui/early-bird-badge";
 import { ExportButton } from "@/components/admin/export-button";
 import { AddParticipantDialog } from "@/components/admin/add-participant-dialog";
 import { ImportCsvDialog } from "@/components/admin/import-csv-dialog";
@@ -170,20 +169,21 @@ export default function ParticipantsPage() {
                   </button>
                 </th>
                 <th className="px-4 py-3">Status</th>
+                <th className="px-4 py-3">Reg Group</th>
                 <th className="px-4 py-3 text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
               {loading && (
                 <tr>
-                  <td colSpan={8} className="px-4 py-10 text-center text-slate-400">
+                  <td colSpan={9} className="px-4 py-10 text-center text-slate-400">
                     Loading participants…
                   </td>
                 </tr>
               )}
               {!loading && participants.length === 0 && (
                 <tr>
-                  <td colSpan={8} className="px-4 py-10 text-center text-slate-400">
+                  <td colSpan={9} className="px-4 py-10 text-center text-slate-400">
                     No participants match your search.
                   </td>
                 </tr>
@@ -203,11 +203,9 @@ export default function ParticipantsPage() {
                     <td className="max-w-[12rem] truncate px-4 py-3 text-slate-600">{p.email}</td>
                     <td className="whitespace-nowrap px-4 py-3 text-slate-600">{formatDate(p.registrationDate)}</td>
                     <td className="whitespace-nowrap px-4 py-3">
-                      <div className="flex items-center gap-1.5">
-                        <StatusBadge status={p.status} />
-                        {p.isEarlyBird && <EarlyBirdBadge />}
-                      </div>
+                      <StatusBadge status={p.status} />
                     </td>
+                    <td className="whitespace-nowrap px-4 py-3 text-slate-600">{p.regGroup || "—"}</td>
                     <td className="whitespace-nowrap px-4 py-3 text-right">
                       <div className="flex items-center justify-end gap-1">
                         <button

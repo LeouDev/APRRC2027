@@ -12,6 +12,11 @@ import {
   REGISTRATION_FEE_PHP_CARD_CENTAVOS,
 } from "@/lib/registration-schema";
 
+// Registrants before this cutoff came in through the Early Bird / Super
+// Early Bird batches (imported separately); everyone who registers through
+// the live form from this date on is the "Regular" cohort.
+const REGULAR_REG_GROUP_CUTOFF = new Date("2026-09-28T00:00:00+08:00");
+
 export async function POST(req: NextRequest) {
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
   const rate = checkRateLimit(`register:${ip}`);
@@ -126,6 +131,7 @@ export async function POST(req: NextRequest) {
       proofOfPaymentMimeType: proofMimeType,
       proofOfPaymentFileName: proofFileName,
       status: "PENDING",
+      regGroup: new Date() >= REGULAR_REG_GROUP_CUTOFF ? "Regular" : null,
     },
     select: { id: true, registrationNumber: true, firstName: true, lastName: true, email: true },
   });

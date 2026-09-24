@@ -65,7 +65,7 @@ model Participant {
 
   city             String?
   status           ParticipantStatus @default(PENDING)
-  isEarlyBird      Boolean           @default(false)
+  regGroup         String? // Registration cohort/tier, e.g. "Early Bird", "Super Early Bird"
   adminNotes       String?
   registrationDate DateTime          @default(now())
   createdAt        DateTime          @default(now())

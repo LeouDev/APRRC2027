@@ -33,7 +33,7 @@ export type Participant = {
   paymentMethod: string | null;
   proofOfPaymentFileName: string | null;
   status: "PENDING" | "CONFIRMED" | "CANCELLED" | "REJECTED";
-  isEarlyBird: boolean;
+  regGroup: string | null;
   adminNotes: string | null;
   registrationDate: string;
   createdAt: string;

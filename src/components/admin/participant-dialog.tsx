@@ -14,10 +14,9 @@ import {
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
 import { Input, Select, Textarea } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/ui/status-badge";
-import { EarlyBirdBadge } from "@/components/ui/early-bird-badge";
+import { Badge } from "@/components/ui/badge";
 import { COUNTRIES } from "@/data/countries";
 import { formatDate } from "@/lib/utils";
 import type { Participant } from "@/types/participant";
@@ -73,7 +72,7 @@ export function ParticipantDialog({
           organization: form.organization || null,
           position: form.position || null,
           status: form.status,
-          isEarlyBird: form.isEarlyBird,
+          regGroup: form.regGroup || null,
           adminNotes: form.adminNotes || null,
         }),
       });
@@ -97,7 +96,9 @@ export function ParticipantDialog({
               {participant.firstName} {participant.lastName}
             </DialogTitle>
             <StatusBadge status={(form.status as Participant["status"]) ?? participant.status} />
-            {(form.isEarlyBird ?? participant.isEarlyBird) && <EarlyBirdBadge />}
+            {(form.regGroup ?? participant.regGroup) && (
+              <Badge variant="outline">{form.regGroup ?? participant.regGroup}</Badge>
+            )}
           </div>
           <DialogDescription>
             {participant.registrationNumber} &middot; Registered {formatDate(participant.registrationDate)}
@@ -198,13 +199,15 @@ export function ParticipantDialog({
               </div>
             </div>
 
-            <label className="flex cursor-pointer items-center gap-2.5 text-sm text-slate-700">
-              <Checkbox
-                checked={form.isEarlyBird ?? false}
-                onCheckedChange={(checked) => setForm((f) => ({ ...f, isEarlyBird: checked === true }))}
+            <div>
+              <Label>Reg Group</Label>
+              <Input
+                className="mt-1.5"
+                placeholder="e.g. Early Bird, Super Early Bird, Regular — leave blank if none"
+                value={form.regGroup ?? ""}
+                onChange={(e) => setForm((f) => ({ ...f, regGroup: e.target.value }))}
               />
-              Early Bird registrant
-            </label>
+            </div>
 
             <div>
               <Label>Admin Notes</Label>
