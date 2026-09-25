@@ -7,6 +7,7 @@ import { sendConfirmationEmail } from "@/lib/email";
 const updateSchema = z.object({
   firstName: z.string().min(1).max(100).optional(),
   lastName: z.string().min(1).max(100).optional(),
+  preferredEnglishName: z.string().max(100).nullable().optional(),
   email: z.string().email().optional(),
   phone: z.string().max(30).nullable().optional(),
   country: z.string().min(1).optional(),

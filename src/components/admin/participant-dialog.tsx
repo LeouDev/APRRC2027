@@ -65,6 +65,7 @@ export function ParticipantDialog({
         body: JSON.stringify({
           firstName: form.firstName,
           lastName: form.lastName,
+          preferredEnglishName: form.preferredEnglishName || null,
           email: form.email,
           phone: form.phone || null,
           country: form.country,
@@ -127,6 +128,14 @@ export function ParticipantDialog({
                   className="mt-1.5"
                   value={form.lastName ?? ""}
                   onChange={(e) => setForm((f) => ({ ...f, lastName: e.target.value }))}
+                />
+              </div>
+              <div>
+                <Label>Preferred English Name</Label>
+                <Input
+                  className="mt-1.5"
+                  value={form.preferredEnglishName ?? ""}
+                  onChange={(e) => setForm((f) => ({ ...f, preferredEnglishName: e.target.value }))}
                 />
               </div>
               <div>
