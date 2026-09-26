@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LayoutDashboard, Users, Globe2, BarChart3, Settings, LogOut } from "lucide-react";
+import { LayoutDashboard, Users, Globe2, BarChart3, ScanLine, Settings, LogOut } from "lucide-react";
 import { getSession } from "@/lib/session";
 import { logoutAction } from "@/app/admin/login/actions";
 import { Photo } from "@/components/site/photo";
@@ -26,6 +26,7 @@ const NAV = [
   { href: "/admin/participants", label: "Participants", icon: Users },
   { href: "/admin#countries", label: "Countries", icon: Globe2 },
   { href: "/admin#trend", label: "Analytics", icon: BarChart3 },
+  { href: "/admin/staff", label: "Check-in Staff", icon: ScanLine },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 

@@ -35,6 +35,11 @@ const COLUMNS = [
   "status",
   "registrationDate",
   "adminNotes",
+  "checkedInAt",
+  "checkedInBy",
+  "checkInDeniedAt",
+  "checkInDeniedBy",
+  "checkInDeniedReason",
 ] as const;
 
 export async function GET(req: NextRequest) {

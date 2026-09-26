@@ -8,7 +8,8 @@ async function isValidSession(token: string | undefined) {
   const secret = process.env.SESSION_SECRET;
   if (!secret) return false;
   try {
-    await jwtVerify(token, new TextEncoder().encode(secret));
+    // Audience "admin" rejects staff tokens, which share the same secret (see lib/session.ts).
+    await jwtVerify(token, new TextEncoder().encode(secret), { audience: "admin" });
     return true;
   } catch {
     return false;

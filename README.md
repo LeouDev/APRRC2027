@@ -50,6 +50,20 @@ participant data comes from three sources:
 Confirming/rejecting/cancelling participants, editing details, and adding organizer notes all happen
 in `/admin/participants`.
 
+## Event-day check-in
+
+Registration desk staff use `/staff`, a phone-first QR scanner that can be installed to the home screen
+(Share → Add to Home Screen on iPhone, ⋮ → Add to Home screen / Install app on Android).
+
+1. Each scanner signs up at `/staff` (Create an account). They can't sign in yet.
+2. An admin approves them at **Admin → Check-in Staff**. "Remove Access" there locks them out immediately.
+3. Staff scan the QR on a delegate's ticket page (or search by name / reg # if their phone is dead),
+   check their ID, then **Approve** (checks them in — once for the whole event) or **Deny** (records a
+   reason). Only Confirmed registrations can be approved; changing a registration's status stays admin-only.
+
+The attendance list on `/staff` shows who has and hasn't arrived. Admins see a Check-in column in
+Participants, and the CSV export includes the check-in/denial fields.
+
 ## Images
 
 A few brand assets are wired up with graceful fallbacks (soft gradient placeholder if missing — see
@@ -72,14 +86,15 @@ public/images/cebu/city-aerial.jpg
 ```
 src/app/(site)/            public pages — home, /register, /cebu (Navbar + Footer layout)
 src/app/admin/login/       admin login (unprotected)
-src/app/admin/(protected)/ dashboard, participants, settings — guarded by middleware.ts
+src/app/admin/(protected)/ dashboard, participants, check-in staff, settings — guarded by middleware.ts
 src/app/api/admin/         participants CRUD, CSV export, CSV import (all session-protected)
+src/app/staff/             event-day QR check-in app for approved scanners (own login + PWA manifest)
 src/lib/                   prisma client, session/auth, stats queries, event config
 src/components/site/       public-site components
 src/components/admin/      dashboard/participant-management components
 src/components/charts/     Recharts wrappers
 src/components/ui/         shared primitives (button, card, dialog, input, table bits)
-prisma/schema.prisma       Participant + AdminUser models
+prisma/schema.prisma       Participant + AdminUser + StaffUser models
 prisma/seed.ts             sample data + admin user bootstrap
 ```
 

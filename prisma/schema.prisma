@@ -67,6 +67,16 @@ model Participant {
   status           ParticipantStatus @default(PENDING)
   regGroup         String? // Registration cohort/tier, e.g. "Early Bird", "Super Early Bird"
   adminNotes       String?
+
+  // On-site check-in, scanned by approved staff (see StaffUser). The *By
+  // fields hold the staff member's name so the record survives their
+  // account being removed.
+  checkedInAt         DateTime?
+  checkedInBy         String?
+  checkInDeniedAt     DateTime?
+  checkInDeniedBy     String?
+  checkInDeniedReason String?
+
   registrationDate DateTime          @default(now())
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
@@ -82,4 +92,15 @@ model AdminUser {
   passwordHash String
   name         String
   createdAt    DateTime @default(now())
+}
+
+// Event-day QR scanners. They sign up themselves at /staff but can't sign
+// in until an admin approves them at /admin/staff.
+model StaffUser {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  name         String
+  approvedAt   DateTime?
+  createdAt    DateTime  @default(now())
 }

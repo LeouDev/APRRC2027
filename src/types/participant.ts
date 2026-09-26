@@ -35,6 +35,11 @@ export type Participant = {
   status: "PENDING" | "CONFIRMED" | "CANCELLED" | "REJECTED";
   regGroup: string | null;
   adminNotes: string | null;
+  checkedInAt: string | null;
+  checkedInBy: string | null;
+  checkInDeniedAt: string | null;
+  checkInDeniedBy: string | null;
+  checkInDeniedReason: string | null;
   registrationDate: string;
   createdAt: string;
   updatedAt: string;

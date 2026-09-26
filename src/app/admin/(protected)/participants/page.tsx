@@ -170,20 +170,21 @@ export default function ParticipantsPage() {
                 </th>
                 <th className="px-4 py-3">Status</th>
                 <th className="px-4 py-3">Reg Group</th>
+                <th className="px-4 py-3">Check-in</th>
                 <th className="px-4 py-3 text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
               {loading && (
                 <tr>
-                  <td colSpan={9} className="px-4 py-10 text-center text-slate-400">
+                  <td colSpan={10} className="px-4 py-10 text-center text-slate-400">
                     Loading participants…
                   </td>
                 </tr>
               )}
               {!loading && participants.length === 0 && (
                 <tr>
-                  <td colSpan={9} className="px-4 py-10 text-center text-slate-400">
+                  <td colSpan={10} className="px-4 py-10 text-center text-slate-400">
                     No participants match your search.
                   </td>
                 </tr>
@@ -206,6 +207,19 @@ export default function ParticipantsPage() {
                       <StatusBadge status={p.status} />
                     </td>
                     <td className="whitespace-nowrap px-4 py-3 text-slate-600">{p.regGroup || "—"}</td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      {p.checkedInAt ? (
+                        <span title={`by ${p.checkedInBy}`} className="font-medium text-emerald-600">
+                          ✓ {formatDate(p.checkedInAt)}
+                        </span>
+                      ) : p.checkInDeniedAt ? (
+                        <span title={`${p.checkInDeniedBy}: ${p.checkInDeniedReason}`} className="font-medium text-red-600">
+                          Denied
+                        </span>
+                      ) : (
+                        <span className="text-slate-400">—</span>
+                      )}
+                    </td>
                     <td className="whitespace-nowrap px-4 py-3 text-right">
                       <div className="flex items-center justify-end gap-1">
                         <button
